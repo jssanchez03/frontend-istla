@@ -575,7 +575,7 @@ const DashboardGeneral = () => {
             }
 
             return (
-                <div className="mb-6">
+                <div className="mb-6" data-aos="fade-up">
                     <CardParticipacion
                         tipo={detalle.tipo}
                         completadas={detalle.completadas}
@@ -589,66 +589,74 @@ const DashboardGeneral = () => {
         // Cards generales
         return (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 dashboard-cards-grid-mobile">
-                <CardDashboard
-                    titulo="Docentes Evaluados"
-                    valor={(estadisticas?.total_docentes_evaluados ?? 0).toString()}
-                    cambio={calcularCambio(
-                        estadisticas?.total_docentes_evaluados ?? 0,
-                        estadisticas?.total_docentes_anteriores ?? 0
-                    ) + " desde el último período"}
-                    icono={<UserCheck size={24} className="text-pink-600" />}
-                    color="bg-pink-50"
-                    iconBg="bg-pink-100"
-                    tendencia={
-                        (estadisticas?.total_docentes_evaluados ?? 0) >=
-                            (estadisticas?.total_docentes_anteriores ?? 0) ? "up" : "down"
-                    }
-                />
-                <CardDashboard
-                    titulo="Promedio General"
-                    valor={`${parseFloat((estadisticas?.promedio_general ?? 0).toString()).toFixed(0)}/100`}
-                    cambio={calcularCambioPorcentaje(
-                        estadisticas?.promedio_general ?? 0,
-                        estadisticas?.promedio_general_anterior ?? 0
-                    ) + " desde el último período"}
-                    icono={<BarChart2 size={24} className="text-red-600" />}
-                    color="bg-red-50"
-                    iconBg="bg-red-100"
-                    tendencia={
-                        (estadisticas?.promedio_general ?? 0) >=
-                            (estadisticas?.promedio_general_anterior ?? 0) ? "up" : "down"
-                    }
-                />
-                <CardDashboard
-                    titulo="Evaluaciones Completadas"
-                    valor={(estadisticas?.total_evaluaciones_completadas ?? 0).toString()}
-                    cambio={calcularCambio(
-                        estadisticas?.total_evaluaciones_completadas ?? 0,
-                        estadisticas?.total_evaluaciones_anteriores ?? 0
-                    ) + " desde el último período"}
-                    icono={<CheckSquare size={24} className="text-yellow-600" />}
-                    color="bg-yellow-50"
-                    iconBg="bg-yellow-100"
-                    tendencia={
-                        (estadisticas?.total_evaluaciones_completadas ?? 0) >=
-                            (estadisticas?.total_evaluaciones_anteriores ?? 0) ? "up" : "down"
-                    }
-                />
-                <CardDashboard
-                    titulo="Tasa de Participación"
-                    valor={`${parseFloat((estadisticas?.tasa_participacion ?? 0).toString()).toFixed(1)}%`}
-                    cambio={calcularCambioPorcentaje(
-                        estadisticas?.tasa_participacion ?? 0,
-                        estadisticas?.tasa_participacion_anterior ?? 0
-                    ) + " desde el último período"}
-                    icono={<Users size={24} className="text-cyan-600" />}
-                    color="bg-cyan-50"
-                    iconBg="bg-cyan-100"
-                    tendencia={
-                        (estadisticas?.tasa_participacion ?? 0) >=
-                            (estadisticas?.tasa_participacion_anterior ?? 0) ? "up" : "down"
-                    }
-                />
+                <div data-aos="fade-up" data-aos-delay="0">
+                    <CardDashboard
+                        titulo="Docentes Evaluados"
+                        valor={(estadisticas?.total_docentes_evaluados ?? 0).toString()}
+                        cambio={calcularCambio(
+                            estadisticas?.total_docentes_evaluados ?? 0,
+                            estadisticas?.total_docentes_anteriores ?? 0
+                        ) + " desde el último período"}
+                        icono={<UserCheck size={24} className="text-pink-600" />}
+                        color="bg-pink-50"
+                        iconBg="bg-pink-100"
+                        tendencia={
+                            (estadisticas?.total_docentes_evaluados ?? 0) >=
+                                (estadisticas?.total_docentes_anteriores ?? 0) ? "up" : "down"
+                        }
+                    />
+                </div>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <CardDashboard
+                        titulo="Promedio General"
+                        valor={`${parseFloat((estadisticas?.promedio_general ?? 0).toString()).toFixed(0)}/100`}
+                        cambio={calcularCambioPorcentaje(
+                            estadisticas?.promedio_general ?? 0,
+                            estadisticas?.promedio_general_anterior ?? 0
+                        ) + " desde el último período"}
+                        icono={<BarChart2 size={24} className="text-red-600" />}
+                        color="bg-red-50"
+                        iconBg="bg-red-100"
+                        tendencia={
+                            (estadisticas?.promedio_general ?? 0) >=
+                                (estadisticas?.promedio_general_anterior ?? 0) ? "up" : "down"
+                        }
+                    />
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <CardDashboard
+                        titulo="Evaluaciones Completadas"
+                        valor={(estadisticas?.total_evaluaciones_completadas ?? 0).toString()}
+                        cambio={calcularCambio(
+                            estadisticas?.total_evaluaciones_completadas ?? 0,
+                            estadisticas?.total_evaluaciones_anteriores ?? 0
+                        ) + " desde el último período"}
+                        icono={<CheckSquare size={24} className="text-yellow-600" />}
+                        color="bg-yellow-50"
+                        iconBg="bg-yellow-100"
+                        tendencia={
+                            (estadisticas?.total_evaluaciones_completadas ?? 0) >=
+                                (estadisticas?.total_evaluaciones_anteriores ?? 0) ? "up" : "down"
+                        }
+                    />
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <CardDashboard
+                        titulo="Tasa de Participación"
+                        valor={`${parseFloat((estadisticas?.tasa_participacion ?? 0).toString()).toFixed(1)}%`}
+                        cambio={calcularCambioPorcentaje(
+                            estadisticas?.tasa_participacion ?? 0,
+                            estadisticas?.tasa_participacion_anterior ?? 0
+                        ) + " desde el último período"}
+                        icono={<Users size={24} className="text-cyan-600" />}
+                        color="bg-cyan-50"
+                        iconBg="bg-cyan-100"
+                        tendencia={
+                            (estadisticas?.tasa_participacion ?? 0) >=
+                                (estadisticas?.tasa_participacion_anterior ?? 0) ? "up" : "down"
+                        }
+                    />
+                </div>
             </div>
         );
     };
@@ -682,17 +690,17 @@ const DashboardGeneral = () => {
                         Desempeño por Ítem Evaluativo
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 dashboard-cards-grid-mobile">
-                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200 dashboard-card-mobile">
+                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200 dashboard-card-mobile" data-aos="fade-up" data-aos-delay="0">
                             <p className="text-sm text-blue-600 font-medium">Total Preguntas</p>
                             <p className="text-2xl font-bold text-blue-900">{estadisticas_generales.total_preguntas}</p>
                         </div>
-                        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200 dashboard-card-mobile">
+                        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200 dashboard-card-mobile" data-aos="fade-up" data-aos-delay="100">
                             <p className="text-sm text-green-600 font-medium">Promedio General</p>
                             <p className="text-2xl font-bold text-green-900">
                                 {parseFloat(estadisticas_generales.promedio_general).toFixed(2)}
                             </p>
                         </div>
-                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200 dashboard-card-mobile">
+                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200 dashboard-card-mobile" data-aos="fade-up" data-aos-delay="200">
                             <p className="text-sm text-purple-600 font-medium">Tipo Evaluación</p>
                             <p className="text-lg font-bold text-purple-900 capitalize">{estadisticas_generales.tipo_evaluacion}</p>
                         </div>
@@ -700,16 +708,15 @@ const DashboardGeneral = () => {
                 </div>
 
                 <div className="space-y-8">
-                    {(['actitudinal', 'conceptual', 'procedimental'] as const).map((seccion) => (
-                        <div key={seccion} className="bg-gray-50 rounded-lg p-6 border border-gray-100 dashboard-card-mobile">
+                    {(['actitudinal', 'conceptual', 'procedimental'] as const).map((seccion, idx) => (
+                        <div key={seccion} className="bg-gray-50 rounded-lg p-6 border border-gray-100 dashboard-card-mobile" data-aos="fade-up" data-aos-delay={idx * 100}>
                             <h4 className="font-semibold text-gray-900 mb-6 text-center">
                                 {seccion.charAt(0).toUpperCase() + seccion.slice(1)} ({promedios_por_tipo[seccion]?.length || 0} preguntas)
                             </h4>
-
                             {promedios_por_tipo[seccion]?.length > 0 ? (
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 dashboard-cards-grid-mobile">
-                                    {promedios_por_tipo[seccion].map((item) => (
-                                        <div key={item.id_pregunta} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300 dashboard-card-mobile">
+                                    {promedios_por_tipo[seccion].map((item, i) => (
+                                        <div key={item.id_pregunta} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300 dashboard-card-mobile" data-aos="fade-up" data-aos-delay={i * 50}>
                                             <div className="flex justify-between items-start mb-3">
                                                 <p className="text-sm text-gray-800 font-medium leading-tight flex-1 pr-2">
                                                     {item.texto_pregunta.length > 70
@@ -830,7 +837,7 @@ const DashboardGeneral = () => {
                                         <div className="flex-1 overflow-hidden">
                                             <div className="max-h-117 overflow-y-auto pr-2 space-y-8">
                                                 {promediosPorCarrera.carreras.map((carrera, index) => (
-                                                    <div key={index} className="bg-gray-50 rounded-lg p-6 border border-gray-100 dashboard-card-mobile">
+                                                    <div key={index} className="bg-gray-50 rounded-lg p-6 border border-gray-100 dashboard-card-mobile" data-aos="fade-up" data-aos-delay={index * 100}>
                                                         <h4 className="font-semibold text-gray-900 mb-6 text-center">
                                                             {carrera.nombre_carrera}
                                                         </h4>
@@ -989,14 +996,14 @@ const DashboardGeneral = () => {
                                     </h3>
                                     {preguntasExtremas[tabActivo] ? (
                                         <div className="space-y-8">
-                                            {['actitudinal', 'conceptual', 'procedimental'].map((seccion) => (
-                                                <div key={seccion} className="bg-gray-50 rounded-lg p-6 border border-gray-100 dashboard-card-mobile">
+                                            {['actitudinal', 'conceptual', 'procedimental'].map((seccion, idx) => (
+                                                <div key={seccion} className="bg-gray-50 rounded-lg p-6 border border-gray-100 dashboard-card-mobile" data-aos="fade-up" data-aos-delay={idx * 100}>
                                                     <h4 className="font-semibold text-gray-900 mb-4 capitalize text-center">
                                                         {seccion}
                                                     </h4>
                                                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 dashboard-cards-grid-mobile">
                                                         {/* Mejor evaluada */}
-                                                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200 dashboard-card-mobile">
+                                                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200 dashboard-card-mobile" data-aos="fade-up" data-aos-delay="0">
                                                             <div className="flex items-center gap-3 mb-3">
                                                                 <div className="relative">
                                                                     <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
@@ -1208,8 +1215,8 @@ const DashboardGeneral = () => {
                                         {filteredResultados.length === 0 ? (
                                             <div className="p-4 text-center text-gray-500">No se encontraron resultados para este período</div>
                                         ) : (
-                                            resultadosPaginados.map((resultado) => (
-                                                <div key={resultado.id_distributivo} className="rounded-lg border border-gray-200 bg-white p-3 flex flex-col gap-2 shadow-sm mb-2">
+                                            resultadosPaginados.map((resultado, idx) => (
+                                                <div key={resultado.id_distributivo} className="rounded-lg border border-gray-200 bg-white p-3 flex flex-col gap-2 shadow-sm mb-2" data-aos="fade-up" data-aos-delay={idx * 50}>
                                                     <div className="flex justify-between items-center mb-1">
                                                         <div>
                                                             <div className="font-semibold text-xs text-gray-700">{capitalizarNombreCompleto(resultado.docente)}</div>
@@ -1232,8 +1239,8 @@ const DashboardGeneral = () => {
                                                         <span className={`inline-flex items-center px-3 py-1 rounded-full font-medium ${resultado.promedio_general && resultado.promedio_general >= 80
                                                             ? 'bg-green-100 text-green-800'
                                                             : resultado.promedio_general && resultado.promedio_general >= 60
-                                                              ? 'bg-yellow-100 text-yellow-800'
-                                                              : 'bg-red-100 text-red-800'
+                                                                ? 'bg-yellow-100 text-yellow-800'
+                                                                : 'bg-red-100 text-red-800'
                                                             }`}>
                                                             Prom: {resultado.promedio_general ? resultado.promedio_general.toFixed(2) : 'N/A'}
                                                         </span>
@@ -1315,7 +1322,7 @@ const DashboardGeneral = () => {
                                             </thead>
                                             <tbody className="bg-white divide-y divide-gray-200">
                                                 {resultadosPaginados.map((resultado, index) => (
-                                                    <tr key={resultado.id_distributivo} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${index === resultadosPaginados.length - 1 ? 'last:rounded-b-lg' : ''}`}>
+                                                    <tr key={resultado.id_distributivo} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${index === resultadosPaginados.length - 1 ? 'last:rounded-b-lg' : ''}`} data-aos="fade-up" data-aos-delay={index * 50}>
                                                         <td className={`px-6 py-4 whitespace-nowrap ${index === resultadosPaginados.length - 1 ? 'rounded-bl-lg' : ''}`}>
                                                             <div className="text-sm font-medium text-gray-900">
                                                                 {capitalizarNombreCompleto(resultado.docente)}
@@ -1362,8 +1369,8 @@ const DashboardGeneral = () => {
                                                                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${resultado.promedio_general >= 80
                                                                     ? 'bg-green-100 text-green-800'
                                                                     : resultado.promedio_general >= 60
-                                                                      ? 'bg-yellow-100 text-yellow-800'
-                                                                      : 'bg-red-100 text-red-800'
+                                                                        ? 'bg-yellow-100 text-yellow-800'
+                                                                        : 'bg-red-100 text-red-800'
                                                                     }`}>
                                                                     {resultado.promedio_general.toFixed(2)}
                                                                 </span>
@@ -1875,7 +1882,7 @@ const MapaCalor = ({ datos }: { datos: DatosMapaCalor }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mt-6">
+        <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm mt-6" data-aos="fade-up">
             <div className="mb-3">
                 <h3 className="text-lg font-medium text-gray-900 mb-1">
                     Mapa de Calor por Secciones
@@ -1901,17 +1908,16 @@ const MapaCalor = ({ datos }: { datos: DatosMapaCalor }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {secciones.map(seccion => (
+                            {secciones.map((seccion) => (
                                 <tr key={seccion} className="border-t border-gray-200">
                                     <td className="p-2">
                                         <div className="font-medium text-gray-900 text-sm">
                                             {etiquetasSecciones[seccion]}
                                         </div>
                                     </td>
-                                    {evaluaciones.map(evaluacion => {
+                                    {evaluaciones.map((evaluacion) => {
                                         const puntaje = datos.mapaCalor[seccion][evaluacion];
                                         const estadistica = datos.estadisticas[seccion]?.[evaluacion];
-
                                         return (
                                             <td key={evaluacion} className="p-2 text-center">
                                                 <div className="relative group">
@@ -1925,7 +1931,7 @@ const MapaCalor = ({ datos }: { datos: DatosMapaCalor }) => {
                                                         {puntaje > 0 ? puntaje.toFixed(1) : 'N/A'}
                                                     </div>
 
-                                                    {/* Tooltip - posición inteligente */}
+                                                    {/* Tooltip - sin conflictos AOS */}
                                                     <div className={`
                                                         absolute opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20
                                                         ${seccion === 'actitudinal' ? 'top-full left-1/2 transform -translate-x-1/2 mt-2' : 'bottom-full left-1/2 transform -translate-x-1/2 mb-2'}
