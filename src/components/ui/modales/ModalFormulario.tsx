@@ -13,6 +13,7 @@ interface Props {
 
 const ModalFormulario = ({ isOpen, onClose, onSubmit, initialData }: Props) => {
     const [nombre, setNombre] = useState("");
+    const [error, setError] = useState<string>("");
 
     useEffect(() => {
         // Inicializar AOS
@@ -32,10 +33,18 @@ const ModalFormulario = ({ isOpen, onClose, onSubmit, initialData }: Props) => {
     }, [initialData, isOpen]);
 
     const handleSubmit = () => {
-        if (nombre.trim()) {
-            onSubmit({ nombre });
-            onClose();
+        const nombreValido = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,100}$/.test(nombre.trim());
+        if (!nombre.trim()) {
+            setError("El nombre es obligatorio.");
+            return;
         }
+        if (!nombreValido) {
+            setError("El nombre solo puede contener letras y espacios (mínimo 3, máximo 50 caracteres).");
+            return;
+        }
+        setError("");
+        onSubmit({ nombre: nombre.trim() });
+        onClose();
     };
 
     return (
@@ -81,12 +90,17 @@ const ModalFormulario = ({ isOpen, onClose, onSubmit, initialData }: Props) => {
                     <input
                         type="text"
                         value={nombre}
-                        onChange={(e) => setNombre(e.target.value)}
+                        onChange={(e) => { setNombre(e.target.value); setError(""); }}
                         placeholder="Nombre del formulario"
-                        className="w-full border px-3 py-2 rounded-md mb-4"
+                        className="w-full border px-3 py-2 rounded-md mb-2"
                         data-aos="fade-up"
                         data-aos-delay="100"
+                        minLength={3}
+                        maxLength={100}
+                        required
+                        pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,100}"
                     />
+                    {error && <div className="mb-2 text-red-600 text-sm">{error}</div>}
 
                     <div
                         className="flex justify-end gap-2"

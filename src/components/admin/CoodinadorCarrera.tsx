@@ -59,6 +59,9 @@ const CoordinadorCarrera: React.FC = () => {
     const [mostrarInfo, setMostrarInfo] = useState(false);
     const [deletingIds, setDeletingIds] = useState<Set<number>>(new Set());
     const [confirmationToastId, setConfirmationToastId] = useState<string | null>(null);
+    // Estado para paginación
+    const [paginaActual, setPaginaActual] = useState(1);
+    const elementosPorPagina = 5;
 
     // Inicializar AOS
     useEffect(() => {
@@ -113,6 +116,12 @@ const CoordinadorCarrera: React.FC = () => {
             (asignacion.cedula_coordinador || '').includes(searchTerm)
         );
     });
+
+    // Calcular datos paginados
+    const totalPaginas = Math.ceil(filteredAsignaciones.length / elementosPorPagina);
+    const indiceInicio = (paginaActual - 1) * elementosPorPagina;
+    const indiceFin = indiceInicio + elementosPorPagina;
+    const asignacionesPaginadas = filteredAsignaciones.slice(indiceInicio, indiceFin);
 
     // Abrir modal para crear
     const handleCreate = () => {
@@ -411,7 +420,7 @@ const CoordinadorCarrera: React.FC = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    {filteredAsignaciones.map((asignacion, index) => (
+                                    {asignacionesPaginadas.map((asignacion, index) => (
                                         <tr
                                             key={asignacion.id_coordinador_carrera}
                                             className="hover:bg-gray-50 transition-colors"
@@ -537,6 +546,56 @@ const CoordinadorCarrera: React.FC = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                )}
+
+                {/* Controles de paginación SOLO en la vista de tabla */}
+                {viewMode === 'table' && totalPaginas > 1 && (
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mt-6 pt-4 border-t border-gray-200 space-y-3 md:space-y-0 px-4 md:px-0">
+                        <div className="text-sm text-gray-600 text-center md:text-left">
+                            Página {paginaActual} de {totalPaginas}
+                        </div>
+                        <div className="flex items-center justify-center gap-2">
+                            <button
+                                onClick={() => setPaginaActual(prev => Math.max(prev - 1, 1))}
+                                disabled={paginaActual === 1}
+                                className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Anterior
+                            </button>
+                            <div className="flex items-center gap-1">
+                                {Array.from({ length: totalPaginas }, (_, i) => i + 1)
+                                    .filter(num => {
+                                        return num === 1 ||
+                                            num === totalPaginas ||
+                                            (num >= paginaActual - 2 && num <= paginaActual + 2);
+                                    })
+                                    .map((num, index, array) => (
+                                        <div key={num} className="flex items-center">
+                                            {index > 0 && array[index - 1] !== num - 1 && (
+                                                <span className="px-2 text-gray-400">...</span>
+                                            )}
+                                            <button
+                                                onClick={() => setPaginaActual(num)}
+                                                className={`px-3 py-1 text-sm border rounded ${paginaActual === num
+                                                    ? 'bg-[#189cbf] text-white border-[#189cbf]'
+                                                    : 'border-gray-300 hover:bg-gray-50'
+                                                    }`}
+                                            >
+                                                {num}
+                                            </button>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <button
+                                onClick={() => setPaginaActual(prev => Math.min(prev + 1, totalPaginas))}
+                                disabled={paginaActual === totalPaginas}
+                                className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Siguiente
+                            </button>
+                        </div>
                     </div>
                 )}
 

@@ -88,7 +88,7 @@ function Login() {
                     <form onSubmit={iniciarSesion} className="space-y-4 sm:space-y-5" data-aos="fade-up" data-aos-delay="400">
                         <div className="relative mx-auto max-w-xs">
                             <input
-                                type="text"
+                                type="email"
                                 id="correo"
                                 value={correo}
                                 onChange={(e) => setCorreo(e.target.value)}

@@ -771,46 +771,6 @@ const ReportesAdmin: React.FC = () => {
                 </div>
             )}
 
-            {/* Mensajes de estado */}
-            {error && (
-                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md flex items-center gap-3" data-aos="fade-in" data-aos-duration="400">
-                    <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
-                    <span className="text-sm text-red-800 flex-1">{error}</span>
-                    <button
-                        onClick={() => setError('')}
-                        className="text-red-600 hover:text-red-800 text-lg font-medium"
-                    >
-                        ×
-                    </button>
-                </div>
-            )}
-
-            {success && (
-                <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-md flex items-center gap-3" data-aos="fade-in" data-aos-duration="400">
-                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
-                    <span className="text-sm text-green-800 flex-1">{success}</span>
-                    <button
-                        onClick={() => setSuccess('')}
-                        className="text-green-600 hover:text-green-800 text-lg font-medium"
-                    >
-                        ×
-                    </button>
-                </div>
-            )}
-
-            {info && (
-                <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-md flex items-center gap-3" data-aos="fade-in" data-aos-duration="400">
-                    <Info className="h-5 w-5 text-blue-600 flex-shrink-0" />
-                    <span className="text-sm text-blue-800 flex-1">{info}</span>
-                    <button
-                        onClick={() => setInfo('')}
-                        className="text-blue-600 hover:text-blue-800 text-lg font-medium"
-                    >
-                        ×
-                    </button>
-                </div>
-            )}
-
             {/* Formulario de selección */}
             <div className="bg-white rounded-lg shadow-md border border-gray-200" data-aos="fade-up" data-aos-duration="700">
                 <div className="px-6 py-4 border-b border-gray-200">
@@ -882,6 +842,44 @@ const ReportesAdmin: React.FC = () => {
                                 Configurar Firma
                             </button>
                         </div>
+                        {/* Alertas aquí, después de los botones de acción */}
+                        {error && (
+                            <div className="mb-0 p-4 bg-red-50 border border-red-200 rounded-md flex items-center gap-3" data-aos="fade-in" data-aos-duration="400">
+                                <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
+                                <span className="text-sm text-red-800 flex-1">{error}</span>
+                                <button
+                                    onClick={() => setError('')}
+                                    className="text-red-600 hover:text-red-800 text-lg font-medium"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        )}
+                        {success && (
+                            <div className="mb-0 p-4 bg-green-50 border border-green-200 rounded-md flex items-center gap-3" data-aos="fade-in" data-aos-duration="400">
+                                <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                                <span className="text-sm text-green-800 flex-1">{success}</span>
+                                <button
+                                    onClick={() => setSuccess('')}
+                                    className="text-green-600 hover:text-green-800 text-lg font-medium"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        )}
+                        {info && (
+                            <div className="mb-0 p-4 bg-blue-50 border border-blue-200 rounded-md flex items-center gap-3" data-aos="fade-in" data-aos-duration="400">
+                                <Info className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                                <span className="text-sm text-blue-800 flex-1">{info}</span>
+                                <button
+                                    onClick={() => setInfo('')}
+                                    className="text-blue-600 hover:text-blue-800 text-lg font-medium"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        )}
+                        {/* Fin alertas */}
                     </div>
                 </div>
             </div>
@@ -1232,23 +1230,23 @@ const ReportesAdmin: React.FC = () => {
                                                                             <table className="min-w-full bg-white border border-gray-200 rounded-lg">
                                                                                 <thead className="bg-gray-50">
                                                                                     <tr>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Asignatura</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Docente Evaluador</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Docente Evaluado</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Fecha</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Horario</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Día</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Asignatura</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Docente Evaluador</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Docente Evaluado</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Fecha</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Horario</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Día</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody className="divide-y divide-gray-200">
                                                                                     {nivelAsignaciones.map((asignacion: AsignacionCoevaluacion, index: number) => (
                                                                                         <tr key={`${asignacion.id_asignacion}-${index}`} className="hover:bg-gray-50 transition-colors duration-150">
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{asignacion.nombre_asignatura || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900 flex items-center"><Calendar className="h-4 w-4 mr-1 text-gray-400" />{formatearFecha(asignacion.fecha)}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900"><div className="flex items-center"><Clock className="h-4 w-4 mr-1 text-gray-400" />{formatearHora(asignacion.hora_inicio)} - {formatearHora(asignacion.hora_fin)}</div></td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900"><span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full border border-gray-300">{asignacion.dia || '—'}</span></td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900">{asignacion.nombre_asignatura || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900 flex items-center"><Calendar className="h-4 w-4 mr-1 text-gray-400" />{formatearFecha(asignacion.fecha)}</td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900"><div className="flex items-center"><Clock className="h-4 w-4 mr-1 text-gray-400" />{formatearHora(asignacion.hora_inicio)} - {formatearHora(asignacion.hora_fin)}</div></td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900"><span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full border border-gray-300">{asignacion.dia || '—'}</span></td>
                                                                                         </tr>
                                                                                     ))}
                                                                                 </tbody>
@@ -1406,23 +1404,23 @@ const ReportesAdmin: React.FC = () => {
                                                                             <table className="min-w-full bg-white border border-gray-200 rounded-lg">
                                                                                 <thead className="bg-gray-50">
                                                                                     <tr>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Asignatura</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Docente Evaluador</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Docente Evaluado</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Fecha</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Horario</th>
-                                                                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Día</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Asignatura</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Docente Evaluador</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Docente Evaluado</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Fecha</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Horario</th>
+                                                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Día</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody className="divide-y divide-gray-200">
                                                                                     {nivelAsignaciones.map((asignacion: AsignacionCoevaluacion, index: number) => (
                                                                                         <tr key={`${asignacion.id_asignacion}-${index}`} className="hover:bg-gray-50 transition-colors duration-150">
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{asignacion.nombre_asignatura || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900 flex items-center"><Calendar className="h-4 w-4 mr-1 text-gray-400" />{formatearFecha(asignacion.fecha)}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900"><div className="flex items-center"><Clock className="h-4 w-4 mr-1 text-gray-400" />{formatearHora(asignacion.hora_inicio)} - {formatearHora(asignacion.hora_fin)}</div></td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900"><span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full border border-gray-300">{asignacion.dia || '—'}</span></td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900">{asignacion.nombre_asignatura || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900 flex items-center"><Calendar className="h-4 w-4 mr-1 text-gray-400" />{formatearFecha(asignacion.fecha)}</td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900"><div className="flex items-center"><Clock className="h-4 w-4 mr-1 text-gray-400" />{formatearHora(asignacion.hora_inicio)} - {formatearHora(asignacion.hora_fin)}</div></td>
+                                                                                            <td className="px-4 py-4 text-xs text-gray-900"><span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full border border-gray-300">{asignacion.dia || '—'}</span></td>
                                                                                         </tr>
                                                                                     ))}
                                                                                 </tbody>
@@ -1590,23 +1588,23 @@ const ReportesAdmin: React.FC = () => {
                                             <table className="min-w-full divide-y divide-gray-200">
                                                 <thead className="bg-gray-50">
                                                     <tr>
-                                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Docente</th>
-                                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Autoevaluación (10%)</th>
-                                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heteroevaluación (40%)</th>
-                                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Coevaluación (30%)</th>
-                                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Eval. Autoridades (20%)</th>
-                                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Docente</th>
+                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Autoevaluación (10%)</th>
+                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Heteroevaluación (40%)</th>
+                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Coevaluación (30%)</th>
+                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Eval. Autoridades (20%)</th>
+                                                        <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Total</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="bg-white divide-y divide-gray-200">
                                                     {Array.isArray(datosPromedios) && datosPromedios.map((docente, index) => (
                                                         <tr key={index}>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{capitalizarNombreCompleto(docente.nombre_completo)}</td>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.autoevaluacion !== undefined ? Number(docente.autoevaluacion).toFixed(2) : 'N/A'}</td>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.heteroevaluacion !== undefined ? Number(docente.heteroevaluacion).toFixed(2) : 'N/A'}</td>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.coevaluacion !== undefined ? Number(docente.coevaluacion).toFixed(2) : 'N/A'}</td>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.evaluacion_autoridades !== undefined ? Number(docente.evaluacion_autoridades).toFixed(2) : 'N/A'}</td>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{docente.promedio_ponderado !== undefined ? Number(docente.promedio_ponderado).toFixed(2) : 'N/A'}</td>
+                                                            <td className="px-4 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{capitalizarNombreCompleto(docente.nombre_completo)}</td>
+                                                            <td className="px-4 py-4 whitespace-nowrap text-xs text-gray-500">{docente.autoevaluacion !== undefined ? Number(docente.autoevaluacion).toFixed(2) : 'N/A'}</td>
+                                                            <td className="px-4 py-4 whitespace-nowrap text-xs text-gray-500">{docente.heteroevaluacion !== undefined ? Number(docente.heteroevaluacion).toFixed(2) : 'N/A'}</td>
+                                                            <td className="px-4 py-4 whitespace-nowrap text-xs text-gray-500">{docente.coevaluacion !== undefined ? Number(docente.coevaluacion).toFixed(2) : 'N/A'}</td>
+                                                            <td className="px-4 py-4 whitespace-nowrap text-xs text-gray-500">{docente.evaluacion_autoridades !== undefined ? Number(docente.evaluacion_autoridades).toFixed(2) : 'N/A'}</td>
+                                                            <td className="px-4 py-4 whitespace-nowrap text-xs font-bold text-gray-900">{docente.promedio_ponderado !== undefined ? Number(docente.promedio_ponderado).toFixed(2) : 'N/A'}</td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
@@ -1670,23 +1668,23 @@ const ReportesAdmin: React.FC = () => {
                                                         <table className="min-w-full divide-y divide-gray-200">
                                                             <thead className="bg-gray-50">
                                                                 <tr>
-                                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Docente</th>
-                                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Autoevaluación (10%)</th>
-                                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heteroevaluación (40%)</th>
-                                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Coevaluación (30%)</th>
-                                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Eval. Autoridades (20%)</th>
-                                                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                                                                    <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Docente</th>
+                                                                    <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Autoevaluación (10%)</th>
+                                                                    <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Heteroevaluación (40%)</th>
+                                                                    <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Coevaluación (30%)</th>
+                                                                    <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Eval. Autoridades (20%)</th>
+                                                                    <th className="px-4 py-3 text-left text-[11px] font-medium text-gray-500 uppercase tracking-wider">Total</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody className="bg-white divide-y divide-gray-200">
                                                                 {Array.isArray(carrera.docentes) && carrera.docentes.map((docente: any, index: number) => (
                                                                     <tr key={index}>
-                                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{capitalizarNombreCompleto(docente.nombre_completo)}</td>
-                                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.autoevaluacion !== undefined ? Number(docente.autoevaluacion).toFixed(2) : 'N/A'}</td>
-                                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.heteroevaluacion !== undefined ? Number(docente.heteroevaluacion).toFixed(2) : 'N/A'}</td>
-                                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.coevaluacion !== undefined ? Number(docente.coevaluacion).toFixed(2) : 'N/A'}</td>
-                                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.evaluacion_autoridades !== undefined ? Number(docente.evaluacion_autoridades).toFixed(2) : 'N/A'}</td>
-                                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">{docente.promedio_ponderado !== undefined ? Number(docente.promedio_ponderado).toFixed(2) : 'N/A'}</td>
+                                                                        <td className="px-4 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{capitalizarNombreCompleto(docente.nombre_completo)}</td>
+                                                                        <td className="px-4 py-4 whitespace-nowrap text-xs text-gray-500">{docente.autoevaluacion !== undefined ? Number(docente.autoevaluacion).toFixed(2) : 'N/A'}</td>
+                                                                        <td className="px-4 py-4 whitespace-nowrap text-xs text-gray-500">{docente.heteroevaluacion !== undefined ? Number(docente.heteroevaluacion).toFixed(2) : 'N/A'}</td>
+                                                                        <td className="px-4 py-4 whitespace-nowrap text-xs text-gray-500">{docente.coevaluacion !== undefined ? Number(docente.coevaluacion).toFixed(2) : 'N/A'}</td>
+                                                                        <td className="px-4 py-4 whitespace-nowrap text-xs text-gray-500">{docente.evaluacion_autoridades !== undefined ? Number(docente.evaluacion_autoridades).toFixed(2) : 'N/A'}</td>
+                                                                        <td className="px-4 py-4 whitespace-nowrap text-xs font-bold text-gray-900">{docente.promedio_ponderado !== undefined ? Number(docente.promedio_ponderado).toFixed(2) : 'N/A'}</td>
                                                                     </tr>
                                                                 ))}
                                                             </tbody>
