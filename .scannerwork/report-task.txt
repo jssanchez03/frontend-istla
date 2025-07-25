@@ -1,0 +1,6 @@
+projectKey=Frontend-ISTLA
+serverUrl=http://localhost:9000
+serverVersion=25.7.0.110598
+dashboardUrl=http://localhost:9000/dashboard?id=Frontend-ISTLA
+ceTaskId=1a66cbdd-851d-4e04-a593-3133048ec1e9
+ceTaskUrl=http://localhost:9000/api/ce/task?id=1a66cbdd-851d-4e04-a593-3133048ec1e9
