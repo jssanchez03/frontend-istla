@@ -5,6 +5,7 @@ import { Users, BarChart2, CheckSquare, UserCheck, ChevronDown, TrendingDown, Mi
 import ReactECharts from 'echarts-for-react';
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { capitalizarNombreCompleto } from "../../lib/utils";
 
 interface Periodo {
     id_periodo: number;
@@ -587,7 +588,7 @@ const DashboardGeneral = () => {
 
         // Cards generales
         return (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 dashboard-cards-grid-mobile">
                 <CardDashboard
                     titulo="Docentes Evaluados"
                     valor={(estadisticas?.total_docentes_evaluados ?? 0).toString()}
@@ -680,18 +681,18 @@ const DashboardGeneral = () => {
                         <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
                         Desempeño por Ítem Evaluativo
                     </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 dashboard-cards-grid-mobile">
+                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200 dashboard-card-mobile">
                             <p className="text-sm text-blue-600 font-medium">Total Preguntas</p>
                             <p className="text-2xl font-bold text-blue-900">{estadisticas_generales.total_preguntas}</p>
                         </div>
-                        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200 dashboard-card-mobile">
                             <p className="text-sm text-green-600 font-medium">Promedio General</p>
                             <p className="text-2xl font-bold text-green-900">
                                 {parseFloat(estadisticas_generales.promedio_general).toFixed(2)}
                             </p>
                         </div>
-                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
+                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200 dashboard-card-mobile">
                             <p className="text-sm text-purple-600 font-medium">Tipo Evaluación</p>
                             <p className="text-lg font-bold text-purple-900 capitalize">{estadisticas_generales.tipo_evaluacion}</p>
                         </div>
@@ -700,15 +701,15 @@ const DashboardGeneral = () => {
 
                 <div className="space-y-8">
                     {(['actitudinal', 'conceptual', 'procedimental'] as const).map((seccion) => (
-                        <div key={seccion} className="bg-gray-50 rounded-lg p-6 border border-gray-100">
+                        <div key={seccion} className="bg-gray-50 rounded-lg p-6 border border-gray-100 dashboard-card-mobile">
                             <h4 className="font-semibold text-gray-900 mb-6 text-center">
                                 {seccion.charAt(0).toUpperCase() + seccion.slice(1)} ({promedios_por_tipo[seccion]?.length || 0} preguntas)
                             </h4>
 
                             {promedios_por_tipo[seccion]?.length > 0 ? (
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 dashboard-cards-grid-mobile">
                                     {promedios_por_tipo[seccion].map((item) => (
-                                        <div key={item.id_pregunta} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300">
+                                        <div key={item.id_pregunta} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300 dashboard-card-mobile">
                                             <div className="flex justify-between items-start mb-3">
                                                 <p className="text-sm text-gray-800 font-medium leading-tight flex-1 pr-2">
                                                     {item.texto_pregunta.length > 70
@@ -788,16 +789,16 @@ const DashboardGeneral = () => {
                         {renderCards()}
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                             <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm" data-aos="fade-up" data-aos-delay="0">
-                                <ReactECharts key={`line-${periodoSeleccionado}-${tabActivo}`} option={chartOptions.line} style={{ height: '240px', width: '100%' }} />
+                                <ReactECharts key={`line-${periodoSeleccionado}-${tabActivo}`} option={chartOptions.line} style={{ height: '240px', width: '100%' }} className="dashboard-chart-mobile" />
                             </div>
                             <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                                <ReactECharts key={`pie-${periodoSeleccionado}-${tabActivo}`} option={chartOptions.pie} style={{ height: '240px', width: '100%' }} />
+                                <ReactECharts key={`pie-${periodoSeleccionado}-${tabActivo}`} option={chartOptions.pie} style={{ height: '240px', width: '100%' }} className="dashboard-chart-mobile" />
                             </div>
                             <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm" data-aos="fade-up" data-aos-delay="200">
-                                <ReactECharts key={`bar-${periodoSeleccionado}-${tabActivo}`} option={chartOptions.bar} style={{ height: '240px', width: '100%' }} />
+                                <ReactECharts key={`bar-${periodoSeleccionado}-${tabActivo}`} option={chartOptions.bar} style={{ height: '240px', width: '100%' }} className="dashboard-chart-mobile" />
                             </div>
                         </div>
-                        {datosMapaCalor && <MapaCalor datos={datosMapaCalor} />}
+                        {datosMapaCalor && <div className="dashboard-heatmap-mobile"><MapaCalor datos={datosMapaCalor} /></div>}
                     </div>
                 );
 
@@ -829,11 +830,11 @@ const DashboardGeneral = () => {
                                         <div className="flex-1 overflow-hidden">
                                             <div className="max-h-117 overflow-y-auto pr-2 space-y-8">
                                                 {promediosPorCarrera.carreras.map((carrera, index) => (
-                                                    <div key={index} className="bg-gray-50 rounded-lg p-6 border border-gray-100">
+                                                    <div key={index} className="bg-gray-50 rounded-lg p-6 border border-gray-100 dashboard-card-mobile">
                                                         <h4 className="font-semibold text-gray-900 mb-6 text-center">
                                                             {carrera.nombre_carrera}
                                                         </h4>
-                                                        <div className="grid grid-cols-3 gap-6">
+                                                        <div className="grid grid-cols-3 gap-6 dashboard-cards-grid-mobile">
                                                             {/* Actitudinal */}
                                                             <div className="text-center">
                                                                 <div className="relative inline-flex items-center justify-center mb-2">
@@ -989,13 +990,13 @@ const DashboardGeneral = () => {
                                     {preguntasExtremas[tabActivo] ? (
                                         <div className="space-y-8">
                                             {['actitudinal', 'conceptual', 'procedimental'].map((seccion) => (
-                                                <div key={seccion} className="bg-gray-50 rounded-lg p-6 border border-gray-100">
+                                                <div key={seccion} className="bg-gray-50 rounded-lg p-6 border border-gray-100 dashboard-card-mobile">
                                                     <h4 className="font-semibold text-gray-900 mb-4 capitalize text-center">
                                                         {seccion}
                                                     </h4>
-                                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 dashboard-cards-grid-mobile">
                                                         {/* Mejor evaluada */}
-                                                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200">
+                                                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-lg border border-green-200 dashboard-card-mobile">
                                                             <div className="flex items-center gap-3 mb-3">
                                                                 <div className="relative">
                                                                     <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
@@ -1058,7 +1059,7 @@ const DashboardGeneral = () => {
                                                         </div>
 
                                                         {/* Peor evaluada */}
-                                                        <div className="bg-gradient-to-br from-red-50 to-rose-50 p-4 rounded-lg border border-red-200">
+                                                        <div className="bg-gradient-to-br from-red-50 to-rose-50 p-4 rounded-lg border border-red-200 dashboard-card-mobile">
                                                             <div className="flex items-center gap-3 mb-3">
                                                                 <div className="relative">
                                                                     <svg className="w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
@@ -1200,15 +1201,97 @@ const DashboardGeneral = () => {
                                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#189cbf]"></div>
                                     <span className="ml-3 text-gray-600">Cargando resultados...</span>
                                 </div>
-                            ) : filteredResultados.length === 0 ? (
-                                <div className="text-center py-12">
-                                    <p className="text-gray-500">No se encontraron resultados para este período</p>
-                                </div>
                             ) : (
-                                <div className="px-6 pb-6">
-                                    <div className="overflow-x-auto mt-4 shadow-xs rounded-lg border border-gray-200">
-                                        <table className="min-w-full divide-y divide-gray-200">
-                                            <thead className="bg-gray-50">
+                                <>
+                                    {/* Cards en móvil */}
+                                    <div className="block sm:hidden">
+                                        {filteredResultados.length === 0 ? (
+                                            <div className="p-4 text-center text-gray-500">No se encontraron resultados para este período</div>
+                                        ) : (
+                                            resultadosPaginados.map((resultado) => (
+                                                <div key={resultado.id_distributivo} className="rounded-lg border border-gray-200 bg-white p-3 flex flex-col gap-2 shadow-sm mb-2">
+                                                    <div className="flex justify-between items-center mb-1">
+                                                        <div>
+                                                            <div className="font-semibold text-xs text-gray-700">{capitalizarNombreCompleto(resultado.docente)}</div>
+                                                            <div className="text-xs text-gray-500 hidden md:block">ID: {resultado.id_distributivo}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-wrap gap-2 text-xs mb-1">
+                                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full font-medium bg-[#189cbf]/10 text-[#189cbf]">
+                                                            Auto: {resultado.autoevaluacion ?? 'N/A'}
+                                                        </span>
+                                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full font-medium bg-[#930f4b]/10 text-[#930f4b]">
+                                                            Hetero: {resultado.heteroevaluacion ?? 'N/A'}
+                                                        </span>
+                                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full font-medium bg-[#81bf20]/10 text-[#81bf20]">
+                                                            Coe: {resultado.coevaluacion ?? 'N/A'}
+                                                        </span>
+                                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full font-medium bg-[#9333ea]/10 text-[#9333ea]">
+                                                            Autoridad: {resultado.evaluacion_autoridades ?? 'N/A'}
+                                                        </span>
+                                                        <span className={`inline-flex items-center px-3 py-1 rounded-full font-medium ${resultado.promedio_general && resultado.promedio_general >= 80
+                                                            ? 'bg-green-100 text-green-800'
+                                                            : resultado.promedio_general && resultado.promedio_general >= 60
+                                                              ? 'bg-yellow-100 text-yellow-800'
+                                                              : 'bg-red-100 text-red-800'
+                                                            }`}>
+                                                            Prom: {resultado.promedio_general ? resultado.promedio_general.toFixed(2) : 'N/A'}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        )}
+                                        {/* Paginación móvil */}
+                                        {totalPaginas > 1 && (
+                                            <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+                                                <div className="text-sm text-gray-600">
+                                                    Mostrando {indiceInicio + 1} a {Math.min(indiceFin, filteredResultados.length)} de {filteredResultados.length} registros
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <button
+                                                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                                        disabled={currentPage === 1}
+                                                        className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    >
+                                                        Anterior
+                                                    </button>
+                                                    <div className="flex items-center gap-1">
+                                                        {Array.from({ length: totalPaginas }, (_, i) => i + 1)
+                                                            .filter(num => {
+                                                                return num === 1 || num === totalPaginas || (num >= currentPage - 2 && num <= currentPage + 2);
+                                                            })
+                                                            .map((num, index, array) => (
+                                                                <div key={num} className="flex items-center">
+                                                                    {index > 0 && array[index - 1] !== num - 1 && (
+                                                                        <span className="px-2 text-gray-400">...</span>
+                                                                    )}
+                                                                    <button
+                                                                        onClick={() => setCurrentPage(num)}
+                                                                        className={`px-3 py-1 text-sm border rounded ${currentPage === num
+                                                                            ? 'bg-[#189cbf] text-white border-[#189cbf]'
+                                                                            : 'border-gray-300 hover:bg-gray-50'
+                                                                            }`}
+                                                                    >
+                                                                        {num}
+                                                                    </button>
+                                                                </div>
+                                                            ))}
+                                                    </div>
+                                                    <button
+                                                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPaginas))}
+                                                        disabled={currentPage === totalPaginas}
+                                                        className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    >
+                                                        Siguiente
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    {/* Tabla solo en escritorio */}
+                                    <div className="hidden md:block px-6 pb-6 overflow-x-auto mt-4">
+                                        <table className="min-w-full divide-y divide-gray-200 shadow-sm rounded-lg overflow-hidden">
+                                            <thead className="bg-gray-50 rounded-t-lg">
                                                 <tr>
                                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Docente
@@ -1235,7 +1318,7 @@ const DashboardGeneral = () => {
                                                     <tr key={resultado.id_distributivo} className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} ${index === resultadosPaginados.length - 1 ? 'last:rounded-b-lg' : ''}`}>
                                                         <td className={`px-6 py-4 whitespace-nowrap ${index === resultadosPaginados.length - 1 ? 'rounded-bl-lg' : ''}`}>
                                                             <div className="text-sm font-medium text-gray-900">
-                                                                {resultado.docente}
+                                                                {capitalizarNombreCompleto(resultado.docente)}
                                                             </div>
                                                         </td>
                                                         <td className="px-6 py-4 whitespace-nowrap text-center">
@@ -1279,8 +1362,8 @@ const DashboardGeneral = () => {
                                                                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${resultado.promedio_general >= 80
                                                                     ? 'bg-green-100 text-green-800'
                                                                     : resultado.promedio_general >= 60
-                                                                        ? 'bg-yellow-100 text-yellow-800'
-                                                                        : 'bg-red-100 text-red-800'
+                                                                      ? 'bg-yellow-100 text-yellow-800'
+                                                                      : 'bg-red-100 text-red-800'
                                                                     }`}>
                                                                     {resultado.promedio_general.toFixed(2)}
                                                                 </span>
@@ -1293,62 +1376,7 @@ const DashboardGeneral = () => {
                                             </tbody>
                                         </table>
                                     </div>
-
-                                    {/* Paginación */}
-                                    {totalPaginas > 1 && (
-                                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
-                                            <div className="text-sm text-gray-600">
-                                                Mostrando {indiceInicio + 1} a {Math.min(indiceFin, filteredResultados.length)} de {filteredResultados.length} registros
-                                            </div>
-
-                                            <div className="flex items-center gap-2">
-                                                <button
-                                                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                                                    disabled={currentPage === 1}
-                                                    className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                                                >
-                                                    Anterior
-                                                </button>
-
-                                                <div className="flex items-center gap-1">
-                                                    {Array.from({ length: totalPaginas }, (_, i) => i + 1)
-                                                        .filter(num => {
-                                                            return num === 1 ||
-                                                                num === totalPaginas ||
-                                                                (num >= currentPage - 2 && num <= currentPage + 2);
-                                                        })
-                                                        .map((num, index, array) => (
-                                                            <div key={num} className="flex items-center">
-                                                                {index > 0 && array[index - 1] !== num - 1 && (
-                                                                    <span className="px-2 text-gray-400">...</span>
-                                                                )}
-                                                                <button
-                                                                    onClick={() => setCurrentPage(num)}
-                                                                    className={`px-3 py-1 text-sm border rounded ${currentPage === num
-                                                                        ? 'bg-[#189cbf] text-white border-[#189cbf]'
-                                                                        : 'border-gray-300 hover:bg-gray-50'
-                                                                        }`}
-                                                                >
-                                                                    {num}
-                                                                </button>
-                                                            </div>
-                                                        ))
-                                                    }
-                                                </div>
-
-                                                <button
-                                                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPaginas))}
-                                                    disabled={currentPage === totalPaginas}
-                                                    className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                                                >
-                                                    Siguiente
-                                                </button>
-                                            </div>
-                                        </div>
-                                    )}
-
-
-                                </div>
+                                </>
                             )}
                         </div>
                     </div>
@@ -1368,7 +1396,7 @@ const DashboardGeneral = () => {
             <div className="bg-white rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="100">
                 {/* Header con selector de período */}
                 <div className="bg-[#189cbf] text-white p-6">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center">
                             <BarChart2 className="h-6 w-6 mr-3" />
                             <div>
@@ -1382,7 +1410,7 @@ const DashboardGeneral = () => {
                         </div>
 
                         {/* Selector de período */}
-                        <div className="relative">
+                        <div className="relative dashboard-period-select-mobile">
                             <button
                                 onClick={() => setIsSelectOpen(!isSelectOpen)}
                                 className="flex items-center bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg border border-white/20 min-w-[200px] justify-between transition-colors"
@@ -1420,8 +1448,8 @@ const DashboardGeneral = () => {
 
                 {/* Navegación por tabs */}
                 <div className="flex justify-center p-4 pb-0">
-                    <div className="bg-white rounded-lg p-1 shadow-sm border border-gray-200">
-                        <nav className="flex">
+                    <div className="bg-white rounded-lg p-1 shadow-sm border border-gray-200 w-full md:w-auto">
+                        <nav className="flex flex-col w-full gap-2 md:flex-row md:w-auto md:gap-0 dashboard-tabs-mobile">
                             {[
                                 { id: 'general', label: 'General' },
                                 { id: 'autoevaluacion', label: 'Autoevaluación' },
@@ -1432,7 +1460,7 @@ const DashboardGeneral = () => {
                                 <button
                                     key={tab.id}
                                     onClick={() => setTabActivo(tab.id as TabActivo)}
-                                    className={`px-6 py-2.5 text-sm font-medium rounded-md transition-all duration-300 ${tabActivo === tab.id
+                                    className={`w-full md:w-auto px-6 py-2.5 text-sm font-medium rounded-md transition-all duration-300 ${tabActivo === tab.id
                                         ? 'bg-[#189cbf] text-white shadow-sm'
                                         : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'
                                         }`}

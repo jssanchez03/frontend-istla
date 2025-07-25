@@ -162,3 +162,56 @@ body {
         @apply bg-background text-foreground;
     }
 }
+
+/* DashboardGeneral: Mobile responsive styles */
+@media (max-width: 640px) {
+  /* Tabs en columna */
+  .dashboard-tabs-mobile {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+  .dashboard-tabs-mobile button {
+    width: 100%;
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem;
+  }
+  /* Cards más pequeñas y letra más chica */
+  .dashboard-card-mobile,
+  .dashboard-card-mobile * {
+    font-size: 0.92rem !important;
+  }
+  .dashboard-card-mobile {
+    padding: 0.75rem 0.75rem !important;
+    min-width: 0;
+  }
+  /* Gráficos más pequeños */
+  .dashboard-chart-mobile {
+    height: 160px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  /* Ocultar mapa de calor */
+  .dashboard-heatmap-mobile {
+    display: none !important;
+  }
+  /* Cards en una sola columna */
+  .dashboard-cards-grid-mobile {
+    grid-template-columns: 1fr !important;
+  }
+  /* Tabla de resultados con scroll horizontal */
+  .dashboard-table-scroll-mobile {
+    overflow-x: auto !important;
+    width: 100% !important;
+    display: block !important;
+  }
+  .dashboard-table-scroll-mobile table {
+    min-width: 600px !important;
+  }
+  /* Select de periodo debajo del título */
+  .dashboard-period-select-mobile {
+    margin-top: 1rem !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+}

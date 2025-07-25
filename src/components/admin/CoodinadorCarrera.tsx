@@ -10,6 +10,7 @@ import coordinadorService, {
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Select from "react-select";
+import { capitalizarNombreCompleto } from '../../lib/utils';
 
 interface ModalProps {
     isOpen: boolean;
@@ -424,7 +425,7 @@ const CoordinadorCarrera: React.FC = () => {
                                                     </div>
                                                     <div className="ml-3 sm:ml-4 min-w-0">
                                                         <div className="text-xs sm:text-sm font-medium text-gray-900 truncate lg:whitespace-normal">
-                                                            {asignacion.nombres_coordinador} {asignacion.apellidos_coordinador}
+                                                            {capitalizarNombreCompleto(asignacion.nombres_coordinador)} {capitalizarNombreCompleto(asignacion.apellidos_coordinador)}
                                                         </div>
                                                         <div className="text-xs sm:text-sm text-gray-500 truncate lg:whitespace-normal">
                                                             CI: {asignacion.cedula_coordinador}
@@ -499,7 +500,7 @@ const CoordinadorCarrera: React.FC = () => {
                                         </div>
                                         <div className="min-w-0 flex-1">
                                             <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate">
-                                                {asignacion.nombres_coordinador} {asignacion.apellidos_coordinador}
+                                                {capitalizarNombreCompleto(asignacion.nombres_coordinador)} {capitalizarNombreCompleto(asignacion.apellidos_coordinador)}
                                             </h3>
                                             <p className="text-xs text-gray-500">CI: {asignacion.cedula_coordinador}</p>
                                         </div>
@@ -686,12 +687,12 @@ const CoordinadorCarrera: React.FC = () => {
                                 <Select
                                     options={coordinadores.map(coord => ({
                                         value: coord.cedula,
-                                        label: `${coord.nombres} ${coord.apellidos} - ${coord.cedula}`,
+                                        label: `${capitalizarNombreCompleto(coord.nombres)} ${capitalizarNombreCompleto(coord.apellidos)} - ${coord.cedula}`,
                                     }))}
                                     value={coordinadores
                                         .map(coord => ({
                                             value: coord.cedula,
-                                            label: `${coord.nombres} ${coord.apellidos} - ${coord.cedula}`,
+                                            label: `${capitalizarNombreCompleto(coord.nombres)} ${capitalizarNombreCompleto(coord.apellidos)} - ${coord.cedula}`,
                                         }))
                                         .find(opt => opt.value === formData.cedula)}
                                     onChange={selected => {
@@ -752,7 +753,7 @@ const CoordinadorCarrera: React.FC = () => {
                             {formData.cedula && (
                                 <div className="bg-gray-50 p-3 rounded-lg">
                                     <p className="text-sm text-gray-600 break-words">
-                                        <strong>Nombre:</strong> {formData.nombres} {formData.apellidos}
+                                        <strong>Nombre:</strong> {capitalizarNombreCompleto(formData.nombres)} {capitalizarNombreCompleto(formData.apellidos)}
                                     </p>
                                     <p className="text-sm text-gray-600 break-words">
                                         <strong>Email:</strong> {formData.correo}

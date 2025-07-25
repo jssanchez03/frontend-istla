@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, ChevronDown, CheckCircle2, AlertCircle, Eye, X, Info } from 'lucide-react';
 import { obtenerPeriodos, obtenerResumenEvaluaciones } from "../../services/evaluacionesService";
 import AOS from "aos";
+import { capitalizarNombreCompleto } from '../../lib/utils';
 
 interface Periodo {
   id_periodo: number;
@@ -238,7 +239,7 @@ const ResumenEstudiante = () => {
               {evaluacionesFiltradas.map((ev, idx) => (
                 <div key={`${ev.id}-${ev.docente}-${idx}`} className="rounded-lg border border-gray-200 bg-white p-3 flex flex-col gap-1 shadow-sm">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="font-semibold text-xs text-gray-700">{ev.docente}</span>
+                    <span className="font-semibold text-xs text-gray-700">{capitalizarNombreCompleto(ev.docente)}</span>
                   </div>
                   <div className="text-xs text-gray-600 mb-1">{ev.asignatura}</div>
                   <div className="flex flex-wrap gap-2 text-xs mb-1">
@@ -292,7 +293,7 @@ const ResumenEstudiante = () => {
                       key={`${ev.id}-${ev.docente}-${idx}`}
                       className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                     >
-                      <td className="px-4 py-3">{ev.docente}</td>
+                      <td className="px-4 py-3">{capitalizarNombreCompleto(ev.docente)}</td>
                       <td className="px-4 py-3">{ev.asignatura}</td>
                       <td className="px-4 py-3">
                         {ev.estado === "Completado" ? (
@@ -370,7 +371,7 @@ const ResumenEstudiante = () => {
               <div className="space-y-3">
                 <div data-aos="fade-up" data-aos-delay="50">
                   <label className="block text-sm font-medium text-gray-600">Docente:</label>
-                  <p className="text-sm text-gray-800">{evaluacionDetalle.docente}</p>
+                  <p className="text-sm text-gray-800">{capitalizarNombreCompleto(evaluacionDetalle.docente)}</p>
                 </div>
                 <div data-aos="fade-up" data-aos-delay="100">
                   <label className="block text-sm font-medium text-gray-600">Asignatura:</label>

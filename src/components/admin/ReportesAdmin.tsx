@@ -47,6 +47,7 @@ import ModalConfiguracionOficio from '../ui/modales/ModalConfiguracionOficio';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ModalConfiguracionFirmas from '../ui/modales/ModalConfiguracionFirmas';
+import { capitalizarNombreCompleto } from '../../lib/utils';
 
 // Interfaces para estadísticas
 interface EstadisticasReporte {
@@ -1166,11 +1167,11 @@ const ReportesAdmin: React.FC = () => {
                                                                             <div className="flex flex-wrap gap-2 text-xs mb-1">
                                                                                 <span className="flex items-center gap-1">
                                                                                     <User className="w-3 h-3 text-gray-400" />
-                                                                                    {asignacion.nombre_evaluador || '—'}
+                                                                                    {capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}
                                                                                 </span>
                                                                                 <span className="flex items-center gap-1">
                                                                                     <User className="w-3 h-3 text-gray-400" />
-                                                                                    {asignacion.nombre_evaluado || '—'}
+                                                                                    {capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}
                                                                                 </span>
                                                                             </div>
                                                                             <div className="flex flex-wrap gap-2 text-xs mb-1">
@@ -1243,8 +1244,8 @@ const ReportesAdmin: React.FC = () => {
                                                                                     {nivelAsignaciones.map((asignacion: AsignacionCoevaluacion, index: number) => (
                                                                                         <tr key={`${asignacion.id_asignacion}-${index}`} className="hover:bg-gray-50 transition-colors duration-150">
                                                                                             <td className="px-4 py-4 text-sm text-gray-900">{asignacion.nombre_asignatura || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{asignacion.nombre_evaluador || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{asignacion.nombre_evaluado || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}</td>
                                                                                             <td className="px-4 py-4 text-sm text-gray-900 flex items-center"><Calendar className="h-4 w-4 mr-1 text-gray-400" />{formatearFecha(asignacion.fecha)}</td>
                                                                                             <td className="px-4 py-4 text-sm text-gray-900"><div className="flex items-center"><Clock className="h-4 w-4 mr-1 text-gray-400" />{formatearHora(asignacion.hora_inicio)} - {formatearHora(asignacion.hora_fin)}</div></td>
                                                                                             <td className="px-4 py-4 text-sm text-gray-900"><span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full border border-gray-300">{asignacion.dia || '—'}</span></td>
@@ -1341,11 +1342,11 @@ const ReportesAdmin: React.FC = () => {
                                                                             <div className="flex flex-wrap gap-2 text-xs mb-1">
                                                                                 <span className="flex items-center gap-1">
                                                                                     <User className="w-3 h-3 text-gray-400" />
-                                                                                    {asignacion.nombre_evaluador || '—'}
+                                                                                    {capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}
                                                                                 </span>
                                                                                 <span className="flex items-center gap-1">
                                                                                     <User className="w-3 h-3 text-gray-400" />
-                                                                                    {asignacion.nombre_evaluado || '—'}
+                                                                                    {capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}
                                                                                 </span>
                                                                             </div>
                                                                             <div className="flex flex-wrap gap-2 text-xs mb-1">
@@ -1417,8 +1418,8 @@ const ReportesAdmin: React.FC = () => {
                                                                                     {nivelAsignaciones.map((asignacion: AsignacionCoevaluacion, index: number) => (
                                                                                         <tr key={`${asignacion.id_asignacion}-${index}`} className="hover:bg-gray-50 transition-colors duration-150">
                                                                                             <td className="px-4 py-4 text-sm text-gray-900">{asignacion.nombre_asignatura || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{asignacion.nombre_evaluador || '—'}</td>
-                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{asignacion.nombre_evaluado || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}</td>
+                                                                                            <td className="px-4 py-4 text-sm text-gray-900">{capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}</td>
                                                                                             <td className="px-4 py-4 text-sm text-gray-900 flex items-center"><Calendar className="h-4 w-4 mr-1 text-gray-400" />{formatearFecha(asignacion.fecha)}</td>
                                                                                             <td className="px-4 py-4 text-sm text-gray-900"><div className="flex items-center"><Clock className="h-4 w-4 mr-1 text-gray-400" />{formatearHora(asignacion.hora_inicio)} - {formatearHora(asignacion.hora_fin)}</div></td>
                                                                                             <td className="px-4 py-4 text-sm text-gray-900"><span className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full border border-gray-300">{asignacion.dia || '—'}</span></td>
@@ -1500,7 +1501,7 @@ const ReportesAdmin: React.FC = () => {
                                 <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
                                     <h4 className="text-lg font-semibold text-gray-800 mb-4">General</h4>
                                     <p className="text-gray-600 mb-4">
-                                        Genera un reporte de promedios para todas las carreras.
+                                        Genera un reporte de promedios general para todas las carreras.
                                     </p>
                                     <div className="flex flex-col gap-3">
                                         {/* NUEVO: Botón de previsualizar */}
@@ -1571,7 +1572,7 @@ const ReportesAdmin: React.FC = () => {
                                         {Array.isArray(datosPromedios) && datosPromedios.map((docente, index) => (
                                             <div key={index} className="rounded-lg border border-gray-200 bg-white p-3 flex flex-col gap-1 shadow-sm">
                                                 <div className="font-semibold text-sm text-[#189cbf] mb-1 flex items-center gap-2">
-                                                    <User className="w-4 h-4" /> {docente.nombre_completo}
+                                                    <User className="w-4 h-4" /> {capitalizarNombreCompleto(docente.nombre_completo)}
                                                 </div>
                                                 <div className="flex flex-col gap-1 text-xs">
                                                     <div><span className="font-semibold">Autoevaluación (10%): </span>{docente.autoevaluacion !== undefined ? Number(docente.autoevaluacion).toFixed(2) : 'N/A'}</div>
@@ -1600,7 +1601,7 @@ const ReportesAdmin: React.FC = () => {
                                                 <tbody className="bg-white divide-y divide-gray-200">
                                                     {Array.isArray(datosPromedios) && datosPromedios.map((docente, index) => (
                                                         <tr key={index}>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{docente.nombre_completo}</td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{capitalizarNombreCompleto(docente.nombre_completo)}</td>
                                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.autoevaluacion !== undefined ? Number(docente.autoevaluacion).toFixed(2) : 'N/A'}</td>
                                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.heteroevaluacion !== undefined ? Number(docente.heteroevaluacion).toFixed(2) : 'N/A'}</td>
                                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.coevaluacion !== undefined ? Number(docente.coevaluacion).toFixed(2) : 'N/A'}</td>
@@ -1641,7 +1642,7 @@ const ReportesAdmin: React.FC = () => {
                                                         {Array.isArray(carrera.docentes) && carrera.docentes.map((docente: any, index: number) => (
                                                             <div key={index} className="rounded-lg border border-gray-200 bg-white p-3 flex flex-col gap-1 shadow-sm">
                                                                 <div className="font-semibold text-sm text-[#189cbf] mb-1 flex items-center gap-2">
-                                                                    <User className="w-4 h-4" /> {docente.nombre_completo}
+                                                                    <User className="w-4 h-4" /> {capitalizarNombreCompleto(docente.nombre_completo)}
                                                                 </div>
                                                                 <div className="flex flex-col gap-1 text-xs">
                                                                     <div><span className="font-semibold">Autoevaluación (10%): </span>{docente.autoevaluacion !== undefined ? Number(docente.autoevaluacion).toFixed(2) : 'N/A'}</div>
@@ -1680,7 +1681,7 @@ const ReportesAdmin: React.FC = () => {
                                                             <tbody className="bg-white divide-y divide-gray-200">
                                                                 {Array.isArray(carrera.docentes) && carrera.docentes.map((docente: any, index: number) => (
                                                                     <tr key={index}>
-                                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{docente.nombre_completo}</td>
+                                                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{capitalizarNombreCompleto(docente.nombre_completo)}</td>
                                                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.autoevaluacion !== undefined ? Number(docente.autoevaluacion).toFixed(2) : 'N/A'}</td>
                                                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.heteroevaluacion !== undefined ? Number(docente.heteroevaluacion).toFixed(2) : 'N/A'}</td>
                                                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{docente.coevaluacion !== undefined ? Number(docente.coevaluacion).toFixed(2) : 'N/A'}</td>

@@ -6,6 +6,7 @@ import evaluacionAutoridadesService, { Periodo, Carrera, Docente, EvaluacionData
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Select from "react-select";
+import { capitalizarNombreCompleto } from "../../lib/utils";
 
 // Interfaces optimizadas
 interface FormData {
@@ -371,7 +372,7 @@ const EvaluacionAutoridades: React.FC = () => {
 
     const opcionesDocentes = docentes.map(docente => ({
         value: docente.id_docente.toString(),
-        label: `${docente.nombres_completos} - ${docente.cedula_docente}`
+        label: `${capitalizarNombreCompleto(docente.nombres_completos)} - ${docente.cedula_docente}`
     }));
 
     // Filtrar docentes ya evaluados en el mismo periodo y carrera (excepto si se está editando)
@@ -600,7 +601,7 @@ const EvaluacionAutoridades: React.FC = () => {
                                                         <User className="h-5 w-5 text-white" />
                                                     </div>
                                                     <div className="ml-4 min-w-0">
-                                                        <div className="text-sm font-medium text-gray-900 truncate lg:whitespace-normal">{evaluacion.nombres_docente}</div>
+                                                        <div className="text-sm font-medium text-gray-900 truncate lg:whitespace-normal">{capitalizarNombreCompleto(evaluacion.nombres_docente)}</div>
                                                         <div className="text-sm text-gray-500 truncate lg:whitespace-normal">CI: {evaluacion.cedula_docente}</div>
                                                     </div>
                                                 </div>
@@ -659,7 +660,7 @@ const EvaluacionAutoridades: React.FC = () => {
                             <div key={evaluacion.id_evaluacion_autoridad} className="rounded-lg border border-gray-200 bg-white p-3 flex flex-col gap-2 shadow-sm">
                                 <div className="flex justify-between items-center mb-1">
                                     <div>
-                                        <div className="font-semibold text-xs text-gray-700">{evaluacion.nombres_docente}</div>
+                                        <div className="font-semibold text-xs text-gray-700">{capitalizarNombreCompleto(evaluacion.nombres_docente)}</div>
                                         <div className="text-xs text-gray-500">CI: {evaluacion.cedula_docente}</div>
                                         <div className="text-xs text-gray-500">Carrera: {evaluacion.nombre_carrera}</div>
                                     </div>
@@ -954,7 +955,7 @@ const EvaluacionAutoridades: React.FC = () => {
                                                     </div>
                                                     <div className="ml-3 flex-1">
                                                         <p className="text-gray-900 font-medium">
-                                                            {getDocenteSeleccionado()?.nombres_completos}
+                                                            {capitalizarNombreCompleto(getDocenteSeleccionado()?.nombres_completos || '')}
                                                         </p>
                                                         <p className="text-gray-600 text-sm">
                                                             Cédula: {getDocenteSeleccionado()?.cedula_docente}
@@ -1062,7 +1063,7 @@ const EvaluacionAutoridades: React.FC = () => {
                             <div className="space-y-3">
                                 <div data-aos="fade-up" data-aos-delay="50">
                                     <label className="block text-sm font-medium text-gray-600">Docente:</label>
-                                    <p className="text-sm text-gray-800">{evaluacionDetalle.nombres_docente} (CI: {evaluacionDetalle.cedula_docente})</p>
+                                    <p className="text-sm text-gray-800">{capitalizarNombreCompleto(evaluacionDetalle.nombres_docente)} (CI: {evaluacionDetalle.cedula_docente})</p>
                                 </div>
                                 <div data-aos="fade-up" data-aos-delay="70">
                                     <label className="block text-sm font-medium text-gray-600">Carrera:</label>

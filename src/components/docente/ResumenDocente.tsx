@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, CircleHelp, ChevronDown, CheckCircle2, AlertCircle, Eye, X, Info } from 'lucide-react';
 import AOS from "aos";
 import { obtenerPeriodos, obtenerResumenEvaluaciones } from "../../services/evaluacionesService";
+import { capitalizarNombreCompleto } from '../../lib/utils';
 
 interface Periodo {
     id_periodo: number;
@@ -235,7 +236,7 @@ const ResumenDocente = () => {
                             {evaluacionesFiltradas.map((ev, index) => (
                                 <div key={`${ev.id}-${index}`} className="rounded-lg border border-gray-200 bg-white p-3 flex flex-col gap-1 shadow-sm">
                                     <div className="flex justify-between items-center mb-1">
-                                        <span className="font-semibold text-xs text-gray-700">{ev.evaluado}</span>
+                                        <span className="font-semibold text-xs text-gray-700">{capitalizarNombreCompleto(ev.evaluado)}</span>
                                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${ev.tipoEvaluacion === 'Autoevaluación' ? 'bg-blue-100 text-blue-800' :
                                             ev.tipoEvaluacion === 'Coevaluación' ? 'bg-purple-100 text-purple-800' :
                                                 'bg-green-100 text-green-800'
@@ -293,7 +294,7 @@ const ResumenDocente = () => {
                                 <tbody>
                                     {evaluacionesFiltradas.map((ev, index) => (
                                         <tr key={`${ev.id}-${index}`} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                                            <td className="px-4 py-3">{ev.evaluado}</td>
+                                            <td className="px-4 py-3">{capitalizarNombreCompleto(ev.evaluado)}</td>
                                             <td className="px-4 py-3">{ev.asignatura}</td>
                                             <td className="px-4 py-3">
                                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${ev.tipoEvaluacion === 'Autoevaluación' ? 'bg-blue-100 text-blue-800' :
@@ -379,7 +380,7 @@ const ResumenDocente = () => {
                             <div className="space-y-3">
                                 <div data-aos="fade-up" data-aos-delay="50">
                                     <label className="block text-sm font-medium text-gray-600">Evaluado:</label>
-                                    <p className="text-sm text-gray-800">{evaluacionDetalle.evaluado}</p>
+                                    <p className="text-sm text-gray-800">{capitalizarNombreCompleto(evaluacionDetalle.evaluado)}</p>
                                 </div>
                                 <div data-aos="fade-up" data-aos-delay="100">
                                     <label className="block text-sm font-medium text-gray-600">Asignatura:</label>

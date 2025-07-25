@@ -4,6 +4,7 @@ import { FileText, Download, Eye, Loader2, Users, BookOpen, GraduationCap, Build
 import reporteCoevaluacionService, { AsignacionCoevaluacion } from '../../services/reporteCoevaluacionService';
 import ModalConfiguracionFirmas from '../ui/modales/ModalConfiguracionFirmas';
 import Select from "react-select";
+import { capitalizarNombreCompleto } from '../../lib/utils';
 
 interface EstadisticasReporte {
     totalAsignaciones: number;
@@ -276,11 +277,11 @@ const ReporteCoevaluacion: React.FC = () => {
                                             <div className="flex flex-wrap gap-2 text-xs mb-1">
                                                 <span className="flex items-center gap-1">
                                                     <User className="w-3 h-3 text-gray-400" />
-                                                    {asignacion.nombre_evaluador || '—'}
+                                                    {capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}
                                                 </span>
                                                 <span className="flex items-center gap-1">
                                                     <User className="w-3 h-3 text-gray-400" />
-                                                    {asignacion.nombre_evaluado || '—'}
+                                                    {capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}
                                                 </span>
                                             </div>
                                             <div className="flex flex-wrap gap-2 text-xs mb-1">
@@ -332,10 +333,10 @@ const ReporteCoevaluacion: React.FC = () => {
                                                         {asignacion.nombre_asignatura || '—'}
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-900">
-                                                        {asignacion.nombre_evaluador || '—'}
+                                                        {capitalizarNombreCompleto(asignacion.nombre_evaluador) || '—'}
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-900">
-                                                        {asignacion.nombre_evaluado || '—'}
+                                                        {capitalizarNombreCompleto(asignacion.nombre_evaluado) || '—'}
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-900 flex items-center">
                                                         <Calendar className="h-4 w-4 mr-1 text-gray-400" />
