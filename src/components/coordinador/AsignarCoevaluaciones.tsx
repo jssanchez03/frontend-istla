@@ -232,7 +232,7 @@ const AsignarCoevaluaciones = () => {
 
             // Cargar docentes evaluadores
             const resEvaluadores = await axios.get(
-                `http://localhost:3000/api/v1/asignaciones/docentes-evaluadores/${periodoSeleccionado}`,
+                `https://evaluacion.istla-sigala.edu.ec/api/api/v1/asignaciones/docentes-evaluadores/${periodoSeleccionado}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -242,7 +242,7 @@ const AsignarCoevaluaciones = () => {
 
             // Cargar docentes con materias para ser evaluados
             const resEvaluados = await axios.get(
-                `http://localhost:3000/api/v1/asignaciones/docentes-materias/${periodoSeleccionado}`,
+                `https://evaluacion.istla-sigala.edu.ec/api/api/v1/asignaciones/docentes-materias/${periodoSeleccionado}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -272,7 +272,7 @@ const AsignarCoevaluaciones = () => {
         try {
             const token = localStorage.getItem("token");
 
-            const res = await axios.get("http://localhost:3000/api/v1/asignaciones", {
+            const res = await axios.get("https://evaluacion.istla-sigala.edu.ec/api/api/v1/asignaciones", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -377,7 +377,7 @@ const AsignarCoevaluaciones = () => {
             };
 
             const response = await axios.post(
-                "http://localhost:3000/api/v1/asignaciones/crear",
+                "https://evaluacion.istla-sigala.edu.ec/api/api/v1/asignaciones/crear",
                 datosAsignacion,
                 {
                     headers: {
@@ -455,7 +455,7 @@ const AsignarCoevaluaciones = () => {
         try {
             const token = localStorage.getItem("token");
             const response = await axios.delete(
-                `http://localhost:3000/api/v1/asignaciones/${id}`,
+                `https://evaluacion.istla-sigala.edu.ec/api/api/v1/asignaciones/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -670,7 +670,7 @@ const AsignarCoevaluaciones = () => {
                 ...(horaFin && { hora_fin: horaFin }),
             };
             await axios.put(
-                `http://localhost:3000/api/v1/asignaciones/${asignacionEdit.id_asignacion}`,
+                `https://evaluacion.istla-sigala.edu.ec/api/api/v1/asignaciones/${asignacionEdit.id_asignacion}`,
                 datosAsignacion,
                 {
                     headers: { Authorization: `Bearer ${token}` },

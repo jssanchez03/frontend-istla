@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: Props) => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No hay token");
 
-      const res = await fetch(`http://localhost:3000/api/v1/perfil/${id}`, {
+      const res = await fetch(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/perfil/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

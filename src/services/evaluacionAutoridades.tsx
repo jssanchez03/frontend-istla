@@ -37,7 +37,7 @@ export interface ApiResponse<T> {
     error?: string;
 }
 
-const API_URL = "http://localhost:3000/api/v1";
+const API_URL = "https://evaluacion.istla-sigala.edu.ec/api/api/v1";
 
 class EvaluacionAutoridadesService {
 

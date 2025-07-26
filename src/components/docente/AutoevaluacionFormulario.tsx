@@ -36,12 +36,12 @@ const AutoevaluacionFormulario = () => {
         const cargarPreguntas = async () => {
             try {
                 const resEval = await axios.get(
-                    `http://localhost:3000/api/v1/evaluaciones/${id}`,
+                    `https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones/${id}`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 const idFormulario = resEval.data.id_formulario;
                 const resPreg = await axios.get(
-                    `http://localhost:3000/api/v1/formularios/${idFormulario}/preguntas`,
+                    `https://evaluacion.istla-sigala.edu.ec/api/api/v1/formularios/${idFormulario}/preguntas`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 setPreguntas(resPreg.data);
@@ -79,7 +79,7 @@ const AutoevaluacionFormulario = () => {
             if (!idUsuario) return;
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/api/v1/distributivos/${periodo}`,
+                    `https://evaluacion.istla-sigala.edu.ec/api/api/v1/distributivos/${periodo}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -154,7 +154,7 @@ const AutoevaluacionFormulario = () => {
             }));
 
             await axios.post(
-                `http://localhost:3000/api/v1/evaluaciones/${id}/respuestas`,
+                `https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones/${id}/respuestas`,
                 { respuestas: respuestasFormateadas },
                 {
                     headers: {

@@ -39,7 +39,7 @@ const CoevaluacionesDocente = () => {
         try {
             const token = localStorage.getItem("token");
             const response = await axios.get(
-                "http://localhost:3000/api/v1/evaluaciones/docente/mis-evaluaciones",
+                "https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones/docente/mis-evaluaciones",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

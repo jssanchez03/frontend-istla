@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/v1";
+const API_URL = "https://evaluacion.istla-sigala.edu.ec/api/api/v1";
 
 export const obtenerEstadisticasGenerales = async (periodo: number) => {
   const token = localStorage.getItem("token");
