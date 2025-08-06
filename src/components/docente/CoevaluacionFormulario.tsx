@@ -47,7 +47,7 @@ const CoevaluacionFormulario = () => {
         const cargarDatos = async () => {
             try {
                 // Construir la URL con el parámetro distributivo si existe
-                let url = `http://localhost:3000/api/v1/evaluaciones/${id}`;
+                let url = `https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones/${id}`;
                 if (idDistributivoFromUrl) {
                     url += `?distributivo=${idDistributivoFromUrl}`;
                 }
@@ -62,7 +62,7 @@ const CoevaluacionFormulario = () => {
 
                 // Cargar preguntas del formulario
                 const resPreg = await axios.get(
-                    `http://localhost:3000/api/v1/formularios/${idFormulario}/preguntas`,
+                    `https://evaluacion.istla-sigala.edu.ec/api/api/v1/formularios/${idFormulario}/preguntas`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
 
@@ -120,7 +120,7 @@ const CoevaluacionFormulario = () => {
             }));
 
             await axios.post(
-                `http://localhost:3000/api/v1/evaluaciones/${id}/respuestas`,
+                `https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones/${id}/respuestas`,
                 { respuestas: respuestasFormateadas },
                 {
                     headers: {

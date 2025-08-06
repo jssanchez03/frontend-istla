@@ -35,7 +35,7 @@ export interface Evaluacion {
 // Servicio para obtener periodos
 export const obtenerPeriodos = async () => {
     const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:3000/api/v1/periodos", {
+    const res = await axios.get("https://evaluacion.istla-sigala.edu.ec/api/api/v1/periodos", {
         headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
@@ -44,7 +44,7 @@ export const obtenerPeriodos = async () => {
 // Servicio para obtener docentes por periodo
 export const obtenerDocentesPorPeriodo = async (idPeriodo: number) => {
     const token = localStorage.getItem("token");
-    const res = await axios.get(`http://localhost:3000/api/v1/docentes/${idPeriodo}`, {
+    const res = await axios.get(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/docentes/${idPeriodo}`, {
         headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
@@ -53,7 +53,7 @@ export const obtenerDocentesPorPeriodo = async (idPeriodo: number) => {
 // Servicio para obtener resumen de evaluaciones por periodo
 export const obtenerResumenEvaluaciones = async (idPeriodo: number) => {
     const token = localStorage.getItem("token");
-    const res = await axios.get(`http://localhost:3000/api/v1/evaluaciones/resumen/periodo/${idPeriodo}`, {
+    const res = await axios.get(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones/resumen/periodo/${idPeriodo}`, {
         headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
@@ -62,7 +62,7 @@ export const obtenerResumenEvaluaciones = async (idPeriodo: number) => {
 // Servicio para obtener formularios
 export const obtenerFormularios = async (): Promise<Formulario[]> => {
     const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:3000/api/v1/formularios", {
+    const res = await axios.get("https://evaluacion.istla-sigala.edu.ec/api/api/v1/formularios", {
         headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -89,7 +89,7 @@ export const obtenerFormularios = async (): Promise<Formulario[]> => {
 // Crear formulario
 export const crearFormulario = async (data: { nombre: string }): Promise<Formulario> => {
     const token = localStorage.getItem("token");
-    const res = await axios.post("http://localhost:3000/api/v1/formularios", data, {
+    const res = await axios.post("https://evaluacion.istla-sigala.edu.ec/api/api/v1/formularios", data, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
@@ -101,7 +101,7 @@ export const crearFormulario = async (data: { nombre: string }): Promise<Formula
 // Actualizar formulario
 export const actualizarFormulario = async (id: number, data: { nombre: string }): Promise<Formulario> => {
     const token = localStorage.getItem("token");
-    const res = await axios.put(`http://localhost:3000/api/v1/formularios/${id}`, data, {
+    const res = await axios.put(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/formularios/${id}`, data, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
@@ -113,7 +113,7 @@ export const actualizarFormulario = async (id: number, data: { nombre: string })
 // Eliminar formulario
 export const eliminarFormulario = async (id: number): Promise<void> => {
     const token = localStorage.getItem("token");
-    await axios.delete(`http://localhost:3000/api/v1/formularios/${id}`, {
+    await axios.delete(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/formularios/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
     });
 };
@@ -121,7 +121,7 @@ export const eliminarFormulario = async (id: number): Promise<void> => {
 // Servicio para obtener todas las evaluaciones
 export const obtenerTodasMisEvaluaciones = async (): Promise<any[]> => {
     const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:3000/api/v1/evaluaciones/todas-mis-evaluaciones", {
+    const res = await axios.get("https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones/todas-mis-evaluaciones", {
         headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
@@ -136,7 +136,7 @@ export const crearEvaluacion = async (data: {
     evaluado_id?: number;
 }): Promise<any> => {
     const token = localStorage.getItem("token");
-    const res = await axios.post("http://localhost:3000/api/v1/evaluaciones", data, {
+    const res = await axios.post("https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones", data, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
@@ -148,7 +148,7 @@ export const crearEvaluacion = async (data: {
 // Servicio para eliminar una evaluación
 export const eliminarEvaluacion = async (id: number): Promise<void> => {
     const token = localStorage.getItem("token");
-    await axios.delete(`http://localhost:3000/api/v1/evaluaciones/${id}`, {
+    await axios.delete(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
     });
 };
@@ -156,7 +156,7 @@ export const eliminarEvaluacion = async (id: number): Promise<void> => {
 // Servicio para editar una evaluación
 export const editarEvaluacion = async (id: number, data: any): Promise<any> => {
     const token = localStorage.getItem("token");
-    const res = await axios.put(`http://localhost:3000/api/v1/evaluaciones/${id}`, data, {
+    const res = await axios.put(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/evaluaciones/${id}`, data, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
@@ -168,7 +168,7 @@ export const editarEvaluacion = async (id: number, data: any): Promise<any> => {
 // Servicio para preguntas
 export const obtenerPreguntasPorFormulario = async (idFormulario: number): Promise<Pregunta[]> => {
     const token = localStorage.getItem("token");
-    const res = await axios.get(`http://localhost:3000/api/v1/formularios/${idFormulario}/preguntas`, {
+    const res = await axios.get(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/formularios/${idFormulario}/preguntas`, {
         headers: { Authorization: `Bearer ${token}` },
     });
     return res.data;
@@ -177,7 +177,7 @@ export const obtenerPreguntasPorFormulario = async (idFormulario: number): Promi
 // Servicio para crear una pregunta
 export const crearPregunta = async (data: { id_formulario: number; texto: string; tipo_pregunta: string }): Promise<Pregunta> => {
     const token = localStorage.getItem("token");
-    const res = await axios.post("http://localhost:3000/api/v1/preguntas", data, {
+    const res = await axios.post("https://evaluacion.istla-sigala.edu.ec/api/api/v1/preguntas", data, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
@@ -189,7 +189,7 @@ export const crearPregunta = async (data: { id_formulario: number; texto: string
 // Servicio para eliminar una pregunta
 export const eliminarPregunta = async (id: number): Promise<void> => {
     const token = localStorage.getItem("token");
-    await axios.delete(`http://localhost:3000/api/v1/preguntas/${id}`, {
+    await axios.delete(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/preguntas/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
     });
 };
@@ -197,7 +197,7 @@ export const eliminarPregunta = async (id: number): Promise<void> => {
 // Servicio para actualizar una pregunta
 export const actualizarPregunta = async (id: number, data: { texto: string; tipo_pregunta: string }): Promise<Pregunta> => {
     const token = localStorage.getItem("token");
-    const res = await axios.put(`http://localhost:3000/api/v1/preguntas/${id}`, data, {
+    const res = await axios.put(`https://evaluacion.istla-sigala.edu.ec/api/api/v1/preguntas/${id}`, data, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
@@ -233,7 +233,7 @@ export const notificarDocentesCoevaluacion = async (idPeriodo: number) => {
     try {
         const token = localStorage.getItem("token");
         const response = await axios.post(
-            `http://localhost:3000/api/v1/notificar-docentes-coevaluacion/${idPeriodo}`,
+            `https://evaluacion.istla-sigala.edu.ec/api/api/v1/notificar-docentes-coevaluacion/${idPeriodo}`,
             {},
             {
                 headers: {
