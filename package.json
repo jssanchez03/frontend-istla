@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "security:audit": "npm audit",
+    "security:fix": "npm audit fix",
+    "security:check": "npm audit --audit-level=moderate",
+    "security:outdated": "npm outdated",
+    "security:scan": "npm audit && npm outdated"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.3",

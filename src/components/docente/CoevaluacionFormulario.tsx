@@ -36,6 +36,7 @@ const CoevaluacionFormulario = () => {
     const [activeTab, setActiveTab] = useState("ser");
     const [evaluacionInfo, setEvaluacionInfo] = useState<EvaluacionInfo | null>(null);
     const [mostrarInfo, setMostrarInfo] = useState(false);
+    const [enviando, setEnviando] = useState(false);
 
     // Obtener id_distributivo de los parámetros de la URL como fallback
     const idDistributivoFromUrl = searchParams.get('distributivo');
@@ -82,6 +83,9 @@ const CoevaluacionFormulario = () => {
     };
 
     const handleSubmit = async () => {
+        // Prevenir múltiples envíos
+        if (enviando) return;
+
         const token = localStorage.getItem("token");
 
         // Validación para asegurarse de que todas las preguntas estén respondidas
@@ -93,6 +97,9 @@ const CoevaluacionFormulario = () => {
             return;
         }
 
+        // Activar estado de envío
+        setEnviando(true);
+
         try {
             // Usar la información del docente evaluado del backend o del parámetro URL
             const idDistributivo = evaluacionInfo?.docente_evaluado?.id_distributivo ||
@@ -100,6 +107,7 @@ const CoevaluacionFormulario = () => {
 
             if (!idDistributivo) {
                 toast.error("Error: No se pudo identificar el docente a evaluar.");
+                setEnviando(false);
                 return;
             }
 
@@ -126,7 +134,9 @@ const CoevaluacionFormulario = () => {
         } catch (err) {
             console.error('Error al enviar respuestas.');
             toast.error("Error al enviar respuestas.");
+            setEnviando(false); // Reactivar el botón en caso de error
         }
+        // Nota: No desactivamos setEnviando(false) en el caso exitoso porque navegamos fuera del componente
     };
 
     const agruparPreguntas = () => {
@@ -142,13 +152,13 @@ const CoevaluacionFormulario = () => {
     const obtenerNumeroPregunta = (seccion: string, indiceLocal: number) => {
         const secciones = agruparPreguntas();
         let numeroBase = 1;
-        
+
         if (seccion === "saber") {
             numeroBase += secciones.ser.length;
         } else if (seccion === "hacer") {
             numeroBase += secciones.ser.length + secciones.saber.length;
         }
-        
+
         return numeroBase + indiceLocal;
     };
 
@@ -336,33 +346,33 @@ const CoevaluacionFormulario = () => {
                                 >
                                     <div className="mt-0">
                                         {/* Indicador visual de avance */}
-                                       <div className="mb-4 sm:mb-6">
-                                           <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
-                                               Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
-                                           </div>
-                                           <div className="w-full bg-gray-200 rounded-full h-2">
-                                               <div
-                                                   className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
-                                                   style={{
-                                                       width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
-                                                   }}
-                                               ></div>
-                                           </div>
-                                       </div>
+                                        <div className="mb-4 sm:mb-6">
+                                            <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
+                                                Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
+                                            </div>
+                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                                <div
+                                                    className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
+                                                    style={{
+                                                        width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                        </div>
                                         {/* Preguntas */}
-                                       <div className="bg-white rounded-lg">
+                                        <div className="bg-white rounded-lg">
                                             {secciones.ser &&
                                                 secciones.ser.map((pregunta, idx) => (
                                                     <div
-                                                       key={pregunta.id_pregunta}
-                                                       className="p-3 sm:p-4 mb-3 sm:mb-4 bg-gray-50 sm:bg-white rounded-lg border sm:shadow-md"
+                                                        key={pregunta.id_pregunta}
+                                                        className="p-3 sm:p-4 mb-3 sm:mb-4 bg-gray-50 sm:bg-white rounded-lg border sm:shadow-md"
                                                     >
-                                                       <div className="mb-3 sm:mb-3">
-                                                           <span className="font-medium text-sm sm:text-base">
+                                                        <div className="mb-3 sm:mb-3">
+                                                            <span className="font-medium text-sm sm:text-base">
                                                                 {obtenerNumeroPregunta("ser", idx)}. {pregunta.texto}
                                                             </span>
                                                         </div>
-                                                       <div className="flex flex-wrap gap-2 sm:gap-6 justify-center">
+                                                        <div className="flex flex-wrap gap-2 sm:gap-6 justify-center">
                                                             {[1, 2, 3, 4, 5].map((valor) => (
                                                                 <label
                                                                     key={valor}
@@ -380,28 +390,28 @@ const CoevaluacionFormulario = () => {
                                                                         }
                                                                         className="sr-only"
                                                                     />
-                                                                   <div
-                                                                       className={`w-10 h-10 sm:w-12 sm:h-8 rounded-md flex items-center justify-center border-2 transition-all duration-200 text-sm sm:text-base ${respuestas[pregunta.id_pregunta] === String(valor)
-                                                                           ? "bg-[#189cbf] text-white border-[#189cbf]"
-                                                                           : "bg-white border-gray-300 hover:bg-gray-50"
-                                                                           }`}
-                                                                   >
-                                                                       {valor}
-                                                                   </div>
+                                                                    <div
+                                                                        className={`w-10 h-10 sm:w-12 sm:h-8 rounded-md flex items-center justify-center border-2 transition-all duration-200 text-sm sm:text-base ${respuestas[pregunta.id_pregunta] === String(valor)
+                                                                            ? "bg-[#189cbf] text-white border-[#189cbf]"
+                                                                            : "bg-white border-gray-300 hover:bg-gray-50"
+                                                                            }`}
+                                                                    >
+                                                                        {valor}
+                                                                    </div>
                                                                 </label>
                                                             ))}
                                                         </div>
                                                     </div>
                                                 ))}
                                         </div>
-                                       <div className="flex flex-col sm:flex-row justify-end mt-4 sm:mt-6 gap-2">
-                                           <button
-                                               onClick={() => setActiveTab("saber")}
-                                               className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#189cbf] hover:bg-[#157a99] text-white font-medium"
-                                           >
-                                               Siguiente sección
-                                           </button>
-                                       </div>
+                                        <div className="flex flex-col sm:flex-row justify-end mt-4 sm:mt-6 gap-2">
+                                            <button
+                                                onClick={() => setActiveTab("saber")}
+                                                className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#189cbf] hover:bg-[#157a99] text-white font-medium"
+                                            >
+                                                Siguiente sección
+                                            </button>
+                                        </div>
                                     </div>
                                 </motion.div>
                             )}
@@ -416,33 +426,33 @@ const CoevaluacionFormulario = () => {
                                 >
                                     <div className="mt-0">
                                         {/* Indicador visual de avance */}
-                                       <div className="mb-4 sm:mb-6">
-                                           <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
-                                               Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
-                                           </div>
-                                           <div className="w-full bg-gray-200 rounded-full h-2">
-                                               <div
-                                                   className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
-                                                   style={{
-                                                       width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
-                                                   }}
-                                               ></div>
-                                           </div>
-                                       </div>
+                                        <div className="mb-4 sm:mb-6">
+                                            <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
+                                                Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
+                                            </div>
+                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                                <div
+                                                    className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
+                                                    style={{
+                                                        width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                        </div>
                                         {/* Preguntas */}
-                                       <div className="bg-white rounded-lg">
+                                        <div className="bg-white rounded-lg">
                                             {secciones.saber &&
                                                 secciones.saber.map((pregunta, idx) => (
                                                     <div
-                                                       key={pregunta.id_pregunta}
-                                                       className="p-3 sm:p-4 mb-3 sm:mb-4 bg-gray-50 sm:bg-white rounded-lg border sm:shadow-md"
+                                                        key={pregunta.id_pregunta}
+                                                        className="p-3 sm:p-4 mb-3 sm:mb-4 bg-gray-50 sm:bg-white rounded-lg border sm:shadow-md"
                                                     >
-                                                       <div className="mb-3 sm:mb-3">
-                                                           <span className="font-medium text-sm sm:text-base">
+                                                        <div className="mb-3 sm:mb-3">
+                                                            <span className="font-medium text-sm sm:text-base">
                                                                 {obtenerNumeroPregunta("saber", idx)}. {pregunta.texto}
                                                             </span>
                                                         </div>
-                                                       <div className="flex flex-wrap gap-2 sm:gap-6 justify-center">
+                                                        <div className="flex flex-wrap gap-2 sm:gap-6 justify-center">
                                                             {[1, 2, 3, 4, 5].map((valor) => (
                                                                 <label
                                                                     key={valor}
@@ -460,34 +470,34 @@ const CoevaluacionFormulario = () => {
                                                                         }
                                                                         className="sr-only"
                                                                     />
-                                                                   <div
-                                                                       className={`w-10 h-10 sm:w-12 sm:h-8 rounded-md flex items-center justify-center border-2 transition-all duration-200 text-sm sm:text-base ${respuestas[pregunta.id_pregunta] === String(valor)
-                                                                           ? "bg-[#189cbf] text-white border-[#189cbf]"
-                                                                           : "bg-white border-gray-300 hover:bg-gray-50"
-                                                                           }`}
-                                                                   >
-                                                                       {valor}
-                                                                   </div>
+                                                                    <div
+                                                                        className={`w-10 h-10 sm:w-12 sm:h-8 rounded-md flex items-center justify-center border-2 transition-all duration-200 text-sm sm:text-base ${respuestas[pregunta.id_pregunta] === String(valor)
+                                                                            ? "bg-[#189cbf] text-white border-[#189cbf]"
+                                                                            : "bg-white border-gray-300 hover:bg-gray-50"
+                                                                            }`}
+                                                                    >
+                                                                        {valor}
+                                                                    </div>
                                                                 </label>
                                                             ))}
                                                         </div>
                                                     </div>
                                                 ))}
                                         </div>
-                                       <div className="flex flex-col sm:flex-row justify-between mt-4 sm:mt-6 gap-2">
-                                           <button
-                                               onClick={() => setActiveTab("ser")}
-                                               className="w-full sm:w-auto px-6 py-3 rounded-lg border border-[#189cbf] text-[#189cbf] hover:bg-gray-50 font-medium"
-                                           >
-                                               Anterior
-                                           </button>
-                                           <button
-                                               onClick={() => setActiveTab("hacer")}
-                                               className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#189cbf] hover:bg-[#157a99] text-white font-medium"
-                                           >
-                                               Siguiente sección
-                                           </button>
-                                       </div>
+                                        <div className="flex flex-col sm:flex-row justify-between mt-4 sm:mt-6 gap-2">
+                                            <button
+                                                onClick={() => setActiveTab("ser")}
+                                                className="w-full sm:w-auto px-6 py-3 rounded-lg border border-[#189cbf] text-[#189cbf] hover:bg-gray-50 font-medium"
+                                            >
+                                                Anterior
+                                            </button>
+                                            <button
+                                                onClick={() => setActiveTab("hacer")}
+                                                className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#189cbf] hover:bg-[#157a99] text-white font-medium"
+                                            >
+                                                Siguiente sección
+                                            </button>
+                                        </div>
                                     </div>
                                 </motion.div>
                             )}
@@ -502,33 +512,33 @@ const CoevaluacionFormulario = () => {
                                 >
                                     <div className="mt-0">
                                         {/* Indicador visual de avance */}
-                                       <div className="mb-4 sm:mb-6">
-                                           <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
-                                               Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
-                                           </div>
-                                           <div className="w-full bg-gray-200 rounded-full h-2">
-                                               <div
-                                                   className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
-                                                   style={{
-                                                       width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
-                                                   }}
-                                               ></div>
-                                           </div>
-                                       </div>
+                                        <div className="mb-4 sm:mb-6">
+                                            <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
+                                                Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
+                                            </div>
+                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                                <div
+                                                    className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
+                                                    style={{
+                                                        width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                        </div>
                                         {/* Preguntas */}
-                                       <div className="bg-white rounded-lg">
+                                        <div className="bg-white rounded-lg">
                                             {secciones.hacer &&
                                                 secciones.hacer.map((pregunta, idx) => (
                                                     <div
-                                                       key={pregunta.id_pregunta}
-                                                       className="p-3 sm:p-4 mb-3 sm:mb-4 bg-gray-50 sm:bg-white rounded-lg border sm:shadow-md"
+                                                        key={pregunta.id_pregunta}
+                                                        className="p-3 sm:p-4 mb-3 sm:mb-4 bg-gray-50 sm:bg-white rounded-lg border sm:shadow-md"
                                                     >
-                                                       <div className="mb-3 sm:mb-3">
-                                                           <span className="font-medium text-sm sm:text-base">
+                                                        <div className="mb-3 sm:mb-3">
+                                                            <span className="font-medium text-sm sm:text-base">
                                                                 {obtenerNumeroPregunta("hacer", idx)}. {pregunta.texto}
                                                             </span>
                                                         </div>
-                                                       <div className="flex flex-wrap gap-2 sm:gap-6 justify-center">
+                                                        <div className="flex flex-wrap gap-2 sm:gap-6 justify-center">
                                                             {[1, 2, 3, 4, 5].map((valor) => (
                                                                 <label
                                                                     key={valor}
@@ -546,35 +556,48 @@ const CoevaluacionFormulario = () => {
                                                                         }
                                                                         className="sr-only"
                                                                     />
-                                                                   <div
-                                                                       className={`w-10 h-10 sm:w-12 sm:h-8 rounded-md flex items-center justify-center border-2 transition-all duration-200 text-sm sm:text-base ${respuestas[pregunta.id_pregunta] === String(valor)
-                                                                           ? "bg-[#189cbf] text-white border-[#189cbf]"
-                                                                           : "bg-white border-gray-300 hover:bg-gray-50"
-                                                                           }`}
-                                                                   >
-                                                                       {valor}
-                                                                   </div>
+                                                                    <div
+                                                                        className={`w-10 h-10 sm:w-12 sm:h-8 rounded-md flex items-center justify-center border-2 transition-all duration-200 text-sm sm:text-base ${respuestas[pregunta.id_pregunta] === String(valor)
+                                                                            ? "bg-[#189cbf] text-white border-[#189cbf]"
+                                                                            : "bg-white border-gray-300 hover:bg-gray-50"
+                                                                            }`}
+                                                                    >
+                                                                        {valor}
+                                                                    </div>
                                                                 </label>
                                                             ))}
                                                         </div>
                                                     </div>
                                                 ))}
                                         </div>
-                                       <div className="flex flex-col sm:flex-row justify-between mt-4 sm:mt-6 gap-2">
-                                           <button
-                                               onClick={() => setActiveTab("saber")}
-                                               className="w-full sm:w-auto px-6 py-3 rounded-lg border border-[#189cbf] text-[#189cbf] hover:bg-gray-50 font-medium"
-                                           >
-                                               Anterior
-                                           </button>
-                                           <button
-                                               onClick={handleSubmit}
-                                               className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#189cbf] hover:bg-[#157a99] text-white flex items-center justify-center font-medium"
-                                           >
-                                               <CheckCircle className="h-4 w-4 mr-2" />
-                                               Finalizar
-                                           </button>
-                                       </div>
+                                        <div className="flex flex-col sm:flex-row justify-between mt-4 sm:mt-6 gap-2">
+                                            <button
+                                                onClick={() => setActiveTab("saber")}
+                                                className="w-full sm:w-auto px-6 py-3 rounded-lg border border-[#189cbf] text-[#189cbf] hover:bg-gray-50 font-medium"
+                                            >
+                                                Anterior
+                                            </button>
+                                            <button
+                                                onClick={handleSubmit}
+                                                disabled={enviando}
+                                                className={`w-full sm:w-auto px-6 py-3 rounded-lg flex items-center justify-center font-medium transition-all duration-200 ${enviando
+                                                        ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+                                                        : "bg-[#189cbf] hover:bg-[#157a99] text-white"
+                                                    }`}
+                                            >
+                                                {enviando ? (
+                                                    <>
+                                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                                        Enviando...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <CheckCircle className="h-4 w-4 mr-2" />
+                                                        Finalizar
+                                                    </>
+                                                )}
+                                            </button>
+                                        </div>
                                     </div>
                                 </motion.div>
                             )}

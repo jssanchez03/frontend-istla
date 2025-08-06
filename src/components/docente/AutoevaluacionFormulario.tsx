@@ -29,6 +29,7 @@ const AutoevaluacionFormulario = () => {
     const [periodo, setPeriodo] = useState<number | "">("");
     const [distributivo, setDistributivo] = useState<number | null>(null);
     const [mostrarInfo, setMostrarInfo] = useState(false);
+    const [enviando, setEnviando] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -121,6 +122,9 @@ const AutoevaluacionFormulario = () => {
     };
 
     const handleSubmit = async () => {
+        // Prevenir múltiples envíos
+        if (enviando) return;
+
         const token = localStorage.getItem("token");
 
         const totalPreguntas = [...(secciones.ser || []), ...(secciones.saber || []), ...(secciones.hacer || [])].length;
@@ -131,18 +135,23 @@ const AutoevaluacionFormulario = () => {
             return;
         }
 
+        // Activar estado de envío
+        setEnviando(true);
+
         try {
             const decodedToken = decodeToken(token || "");
             const usuarioId = decodedToken?.id || decodedToken?.userId || decodedToken?.user_id;
 
             if (!usuarioId) {
                 toast.error("Error: No se pudo identificar al usuario");
+                setEnviando(false);
                 return;
             }
 
             // ✅ Evita enviar si distributivo es null
             if (!distributivo) {
                 toast.error("No se encontró un distributivo asignado para tu usuario.");
+                setEnviando(false);
                 return;
             }
 
@@ -168,7 +177,9 @@ const AutoevaluacionFormulario = () => {
         } catch (err) {
             console.error(err);
             toast.error("Error al enviar respuestas.");
+            setEnviando(false); // Reactivar el botón en caso de error
         }
+        // Nota: No desactivamos setEnviando(false) en el caso exitoso porque navegamos fuera del componente
     };
 
     // ✅ ACTUALIZADA: Función para agrupar preguntas por tipo_pregunta
@@ -355,21 +366,21 @@ const AutoevaluacionFormulario = () => {
                                 >
                                     <div className="mt-0">
                                         {/* Indicador visual de avance */}
-                                       <div className="mb-4 sm:mb-6">
-                                           <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
-                                               Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
-                                           </div>
-                                           <div className="w-full bg-gray-200 rounded-full h-2">
-                                               <div
-                                                   className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
-                                                   style={{
-                                                       width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
-                                                   }}
-                                               ></div>
-                                           </div>
-                                       </div>
+                                        <div className="mb-4 sm:mb-6">
+                                            <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
+                                                Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
+                                            </div>
+                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                                <div
+                                                    className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
+                                                    style={{
+                                                        width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                        </div>
                                         {/* Preguntas */}
-                                       <div className="bg-white rounded-lg ">
+                                        <div className="bg-white rounded-lg ">
                                             {secciones.ser &&
                                                 secciones.ser.map((pregunta, idx) => (
                                                     <div
@@ -413,14 +424,14 @@ const AutoevaluacionFormulario = () => {
                                                     </div>
                                                 ))}
                                         </div>
-                                       <div className="flex flex-col sm:flex-row justify-end mt-4 sm:mt-6 gap-2">
-                                           <button
-                                               onClick={() => setActiveTab("saber")}
-                                               className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#189cbf] hover:bg-[#157a99] text-white font-medium"
-                                           >
-                                               Siguiente sección
-                                           </button>
-                                       </div>
+                                        <div className="flex flex-col sm:flex-row justify-end mt-4 sm:mt-6 gap-2">
+                                            <button
+                                                onClick={() => setActiveTab("saber")}
+                                                className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#189cbf] hover:bg-[#157a99] text-white font-medium"
+                                            >
+                                                Siguiente sección
+                                            </button>
+                                        </div>
                                     </div>
                                 </motion.div>
                             )}
@@ -435,21 +446,21 @@ const AutoevaluacionFormulario = () => {
                                 >
                                     <div className="mt-0">
                                         {/* Indicador visual de avance */}
-                                       <div className="mb-4 sm:mb-6">
-                                           <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
-                                               Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
-                                           </div>
-                                           <div className="w-full bg-gray-200 rounded-full h-2">
-                                               <div
-                                                   className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
-                                                   style={{
-                                                       width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
-                                                   }}
-                                               ></div>
-                                           </div>
-                                       </div>
+                                        <div className="mb-4 sm:mb-6">
+                                            <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
+                                                Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
+                                            </div>
+                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                                <div
+                                                    className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
+                                                    style={{
+                                                        width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                        </div>
                                         {/* Preguntas */}
-                                       <div className="bg-white rounded-lg ">
+                                        <div className="bg-white rounded-lg ">
                                             {secciones.saber &&
                                                 secciones.saber.map((pregunta, idx) => (
                                                     <div
@@ -521,21 +532,21 @@ const AutoevaluacionFormulario = () => {
                                 >
                                     <div className="mt-0">
                                         {/* Indicador visual de avance */}
-                                       <div className="mb-4 sm:mb-6">
-                                           <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
-                                               Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
-                                           </div>
-                                           <div className="w-full bg-gray-200 rounded-full h-2">
-                                               <div
-                                                   className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
-                                                   style={{
-                                                       width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
-                                                   }}
-                                               ></div>
-                                           </div>
-                                       </div>
+                                        <div className="mb-4 sm:mb-6">
+                                            <div className="text-xs sm:text-sm text-center sm:text-right text-gray-500 mb-2">
+                                                Preguntas respondidas: {Object.keys(respuestas).length} / {preguntas.length}
+                                            </div>
+                                            <div className="w-full bg-gray-200 rounded-full h-2">
+                                                <div
+                                                    className="bg-[#189cbf] h-2 rounded-full transition-all duration-300"
+                                                    style={{
+                                                        width: `${(Object.keys(respuestas).length / preguntas.length) * 100}%`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                        </div>
                                         {/* Preguntas */}
-                                       <div className="bg-white rounded-lg ">
+                                        <div className="bg-white rounded-lg ">
                                             {secciones.hacer &&
                                                 secciones.hacer.map((pregunta, idx) => (
                                                     <div
@@ -588,15 +599,25 @@ const AutoevaluacionFormulario = () => {
                                             </button>
                                             <button
                                                 onClick={handleSubmit}
-                                                disabled={distributivo === null}
-                                                className={`w-full sm:w-auto px-6 py-3 rounded-lg flex items-center justify-center font-medium transition-all duration-200 
-                                                ${distributivo === null
+                                                disabled={distributivo === null || enviando}
+                                                className={`w-full sm:w-auto px-6 py-3 rounded-lg flex items-center justify-center font-medium transition-all duration-200 ${distributivo === null
                                                         ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                                                        : "bg-[#189cbf] hover:bg-[#157a99] text-white"}
-                                            `}
+                                                        : enviando
+                                                            ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+                                                            : "bg-[#189cbf] hover:bg-[#157a99] text-white"
+                                                    }`}
                                             >
-                                                <CheckCircle className="h-4 w-4 mr-2" />
-                                                Finalizar
+                                                {enviando ? (
+                                                    <>
+                                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                                        Enviando...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <CheckCircle className="h-4 w-4 mr-2" />
+                                                        Finalizar
+                                                    </>
+                                                )}
                                             </button>
                                         </div>
                                     </div>

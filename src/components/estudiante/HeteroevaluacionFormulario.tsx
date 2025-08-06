@@ -36,7 +36,7 @@ const HeteroevaluacionFormulario = () => {
     const [activeTab, setActiveTab] = useState("ser");
     const [evaluacionInfo, setEvaluacionInfo] = useState<EvaluacionInfo | null>(null);
     const [mostrarInfo, setMostrarInfo] = useState(false);
-
+    const [enviando, setEnviando] = useState(false);
     // Obtener id_distributivo de los parámetros de la URL como fallback
     const idDistributivoFromUrl = searchParams.get('distributivo');
 
@@ -82,6 +82,9 @@ const HeteroevaluacionFormulario = () => {
     };
 
     const handleSubmit = async () => {
+        // Prevenir múltiples envíos
+        if (enviando) return;
+
         const token = localStorage.getItem("token");
 
         // Validación para asegurarse de que todas las preguntas estén respondidas
@@ -93,6 +96,9 @@ const HeteroevaluacionFormulario = () => {
             return;
         }
 
+        // Activar estado de envío
+        setEnviando(true);
+
         try {
             // Usar la información del docente evaluado del backend o del parámetro URL
             const idDistributivo = evaluacionInfo?.docente_evaluado?.id_distributivo ||
@@ -100,6 +106,7 @@ const HeteroevaluacionFormulario = () => {
 
             if (!idDistributivo) {
                 toast.error("Error: No se pudo identificar el docente a evaluar.");
+                setEnviando(false);
                 return;
             }
 
@@ -107,7 +114,7 @@ const HeteroevaluacionFormulario = () => {
             const respuestasFormateadas = Object.entries(respuestas).map(([id_pregunta, respuesta]) => ({
                 id_pregunta: Number(id_pregunta),
                 respuesta,
-                evaluado_id: idDistributivo, // Usar el mismo valor para ambos campos
+                evaluado_id: idDistributivo,
                 id_distributivo: idDistributivo
             }));
 
@@ -126,7 +133,9 @@ const HeteroevaluacionFormulario = () => {
         } catch (err) {
             console.error('Error al enviar respuestas.');
             toast.error("Error al enviar respuestas.");
+            setEnviando(false); // Reactivar el botón en caso de error
         }
+        // Nota: No desactivamos setEnviando(false) en el caso exitoso porque navegamos fuera del componente
     };
 
     const agruparPreguntas = () => {
@@ -571,10 +580,23 @@ const HeteroevaluacionFormulario = () => {
                                             </button>
                                             <button
                                                 onClick={handleSubmit}
-                                                className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#189cbf] hover:bg-[#157a99] text-white flex items-center justify-center font-medium"
+                                                disabled={enviando}
+                                                className={`w-full sm:w-auto px-6 py-3 rounded-lg flex items-center justify-center font-medium transition-all duration-200 ${enviando
+                                                    ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+                                                    : "bg-[#189cbf] hover:bg-[#157a99] text-white"
+                                                    }`}
                                             >
-                                                <CheckCircle className="h-4 w-4 mr-2" />
-                                                Finalizar
+                                                {enviando ? (
+                                                    <>
+                                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                                        Enviando...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <CheckCircle className="h-4 w-4 mr-2" />
+                                                        Finalizar
+                                                    </>
+                                                )}
                                             </button>
                                         </div>
                                     </div>
